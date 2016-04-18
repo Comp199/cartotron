@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Categories{% endblock title %}
+
+{% block content %}
+
+    <h3>Categories</h3>
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <a href="#"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=IMAGE&w=242&h=200" alt="..."></a>
+                    <div class="caption">
+                        <a class="btn btn-primary btn-block" href="#">{{ category.name }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

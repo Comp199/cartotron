@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-10">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>
+                {{ product.description }}
+            </p>
+
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-block btn-success">Add to cart</a>
+        </div>
+    </div>
+
+{% endblock content %}
