@@ -1,1 +1,1 @@
-web: gunicorn cartotronps.wsgi --log-file -
+web: gunicorn cartotron.wsgi --log-file -
