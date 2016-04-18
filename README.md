@@ -30,11 +30,12 @@ Steps:
 * `virtualenv cartotron` - create a new virtualenv
 * `source /path/to/virtualenv/bin/activate` (OSX/Linux) or `C:\path\to\virtualenv\Scripts\activate` (Windows) - activate the virtualenv
 * `pip install -r requirements.txt` - install project specific python packages
+* `python manage.py createsuperuser` - create yourself an admin user
 
 Optional (if you do not set up the database with the SQL scripts)
 
 * `python manage.py migrate` - create the database tables
-* `python manage.py createsuperuser` - create yourself an admin user
+
 
 
 You can log in at [http://localhost:8000/admin/](http://localhost:8000/admin/) by default
