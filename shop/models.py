@@ -64,7 +64,7 @@ class Invoice(models.Model):
     shipping = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return '%s %s' %(self.fn, self.ln)
+        return '%s %s' %(self.name_first, self.name_last)
 
 
 class LineItem(models.Model):
