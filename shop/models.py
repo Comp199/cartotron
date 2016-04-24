@@ -8,6 +8,9 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=25)
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     # to string
     def __str__(self):
         return self.name
@@ -62,6 +65,7 @@ class Invoice(models.Model):
 
     def __str__(self):
         return '%s %s' %(self.fn, self.ln)
+
 
 class LineItem(models.Model):
 
