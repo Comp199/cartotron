@@ -21,8 +21,13 @@ class CartItemAdmin(admin.ModelAdmin):
     pass
 
 
+class LineItemInline(admin.TabularInline):
+    model = LineItem
+    extra = 0
+
+
 class InvoiceAdmin(admin.ModelAdmin):
-    pass
+    inlines = (LineItemInline, )
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
