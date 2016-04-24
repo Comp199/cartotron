@@ -26,7 +26,7 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
     description = models.TextField()
     sku = models.CharField(max_length=10)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='products/images/')
 
     def __str__(self):
         return self.name
@@ -44,7 +44,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
 
     product = models.ForeignKey('Product')
-    cart = models.ForeignKey('Cart')
+    cart = models.ForeignKey('Cart', related_name='items')
     quantity = models.PositiveIntegerField()
 
 
@@ -53,12 +53,12 @@ class Invoice(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     stripe_token = models.CharField(max_length=100)
     city = models.CharField(max_length=30)
-    postal_code = models.CharField(max_length=10)
-    street_1 = models.CharField(max_length=50)
-    street_2 = models.CharField(max_length=50)
-    name_first = models.CharField(max_length=15)
-    name_last = models.CharField(max_length=15)
     country = models.CharField(max_length=20)
+    postal_code = models.CharField(max_length=10)
+    street_1 = models.CharField(max_length=50, verbose_name='Address 1')
+    street_2 = models.CharField(max_length=50, blank=True, verbose_name='Address 2')
+    name_first = models.CharField(max_length=30)
+    name_last = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     shipping = models.DecimalField(max_digits=10, decimal_places=2)
@@ -70,11 +70,11 @@ class Invoice(models.Model):
 class LineItem(models.Model):
 
     invoice = models.ForeignKey('Invoice', related_name='line_items')
+    product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sku = models.CharField(max_length=50)
-    product = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField()
 
 
