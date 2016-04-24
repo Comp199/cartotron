@@ -6,7 +6,7 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'stock', 'price',)
+    list_display = ('name', 'price',)
     search_fields = ('name',)
 
 admin.site.register(Category, CategoryAdmin)

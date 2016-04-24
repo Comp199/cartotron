@@ -82,12 +82,12 @@ WSGI_APPLICATION = 'cartotron.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cartotron',
         'USER': 'cartotron',
-        'PASSWORD': 'SuperSeekrit',
+        'PASSWORD': 'cartotron',
         'HOST': '127.0.0.1',
-        'PORT': 3306,
+        'PORT': 5432,
     }
 }
 
