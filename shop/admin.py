@@ -11,6 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price',)
     search_fields = ('name',)
+    filter_horizontal = ('categories',)
 
 
 class CartAdmin(admin.ModelAdmin):
