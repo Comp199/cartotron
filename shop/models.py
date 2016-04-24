@@ -26,7 +26,7 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
     description = models.TextField()
     sku = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='products/images/')
+    image = models.ImageField(upload_to='products/images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
