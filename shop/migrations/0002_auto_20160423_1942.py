@@ -9,7 +9,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0001_squashed_0003_auto_20160423_1935'),
     ]
 
     operations = [
