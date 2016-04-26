@@ -13,7 +13,7 @@
                 <div class="thumbnail">
                     {% if product.image %}
 
-                        {% thumbnail product.image "260x220" crop="noop" as im %}
+                        {% thumbnail product.image "260x220" crop="center" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                         {% endthumbnail %}
 
