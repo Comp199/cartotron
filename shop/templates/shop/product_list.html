@@ -13,11 +13,9 @@
                 <div class="thumbnail">
                     {% if product.image %}
 
-                        <img src="{{ product.image.url }}" alt="" height="150" width="320">
-
-{#                        {% thumbnail product.image "320x150" crop="center" as im %}#}
-{#                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">#}
-{#                        {% endthumbnail %}#}
+                        {% thumbnail product.image "260x220" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                        {% endthumbnail %}
 
                     {% else %}
                         <img src="http://placehold.it/320x150" alt="">
