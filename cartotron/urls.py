@@ -20,7 +20,7 @@ from django.contrib import admin
 from shop import views as shop_views
 
 urlpatterns = [
-    url(r'^$', shop_views.category_list, name="category_list"),
+    url(r'^$', shop_views.category_list, name="index"),
     url(r'^categories/(?P<category_id>\d+)/$', shop_views.category_detail, name="category_detail"),
     url(r'^products/$', shop_views.product_list, name="product_list"),
     url(r'^products/(?P<product_id>\d+)/$', shop_views.product_detail, name="product_detail"),
