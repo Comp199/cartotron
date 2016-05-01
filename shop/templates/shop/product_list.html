@@ -20,6 +20,7 @@
                     {% else %}
                         <img src="http://placehold.it/260x220" alt="">
                     {%  endif %}
+
                     <div class="caption">
                         <h4 class="pull-right">${{ product.price }}</h4>
                         <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a>

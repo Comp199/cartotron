@@ -11,7 +11,7 @@
                 <div class="thumbnail">
                     <a href="#"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=IMAGE&w=242&h=200" alt="..."></a>
                     <div class="caption">
-                        <a class="btn btn-primary btn-block" href="#">{{ category.name }}</a>
+                        <a class="btn btn-primary btn-block" href="{% url 'category_detail' category_id=category.id %}">{{ category.name }}</a>
                     </div>
                 </div>
             </div>
