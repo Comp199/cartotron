@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 
 # Create your models here. Database
@@ -7,6 +8,7 @@ class Category(models.Model):
     A product category within the store
     """
     name = models.CharField(max_length=25)
+    image = models.ImageField(upload_to='category/images/', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -27,6 +29,9 @@ class Product(models.Model):
     description = models.TextField()
     sku = models.CharField(max_length=10)
     image = models.ImageField(upload_to='products/images/', null=True, blank=True)
+    long_description = tinymce_models.HTMLField(blank=True)
+    review = tinymce_models.HTMLField(blank=True)
+
 
     def __str__(self):
         return self.name
@@ -39,6 +44,23 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.session_id
+
+    def total(self):
+        """
+        Returns the total for all items in the cart.  If the cart does not have an id (or, it has not been
+        saved to the database), no items have been added and 0 is returned.
+        """
+        if not self.id:
+            return 0
+
+        return 55
+
+    def add_item(self, product):
+
+        if not self.id:
+            self.save()
+
+        self.items.create(product=product, quantity=1)
 
 
 class CartItem(models.Model):

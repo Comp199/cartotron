@@ -1,1 +1,50 @@
-[{"model": "shop.category", "pk": 1, "fields": {"name": "Clothing"}}, {"model": "shop.category", "pk": 2, "fields": {"name": "Toys"}}, {"model": "shop.category", "pk": 3, "fields": {"name": "Houseware"}}, {"model": "shop.category", "pk": 4, "fields": {"name": "Cleaning Supplies"}}, {"model": "shop.category", "pk": 5, "fields": {"name": "Kitchen"}}, {"model": "shop.product", "pk": 1, "fields": {"name": "Dawn", "price": "6.99", "stock": 20, "description": "Some fantastic Soap!", "sku": "ABC1231231", "categories": [3, 4, 5]}}, {"model": "shop.product", "pk": 2, "fields": {"name": "Pepe", "price": "30.00", "stock": 4, "description": "Pepe! The coolest bird around.", "sku": "as23465442", "categories": [2]}}, {"model": "shop.product", "pk": 3, "fields": {"name": "Spoon", "price": "1.00", "stock": 100, "description": "A spoon", "sku": "qwe2398rhd", "categories": [3, 5]}}, {"model": "shop.product", "pk": 4, "fields": {"name": "Pen", "price": "3.00", "stock": 25, "description": "gajln", "sku": "ghoho38398", "categories": [3]}}, {"model": "shop.product", "pk": 5, "fields": {"name": "Fork", "price": "1.00", "stock": 20, "description": "hgdoa", "sku": "uhg38huafh", "categories": [3, 5]}}]
+[
+  {
+    "model": "shop.category",
+    "pk": 1,
+    "fields": {
+      "name": "TestTest"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 2,
+    "fields": {
+      "name": "Gifts"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 3,
+    "fields": {
+      "name": "Bathroom"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 4,
+    "fields": {
+      "name": "Snow Globes"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 5,
+    "fields": {
+      "name": "Cookie Cutters"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 6,
+    "fields": {
+      "name": "Cake Pans"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 7,
+    "fields": {
+      "name": "Bottle Openers"
+    }
+  }]

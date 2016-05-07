@@ -2,37 +2,82 @@ BEGIN;
 --
 -- Create model Cart
 --
-CREATE TABLE "shop_cart" ("id" serial NOT NULL PRIMARY KEY, "session_id" varchar(50) NOT NULL, "created_date" timestamp with time zone NOT NULL);
+CREATE TABLE "shop_cart" (
+  "id"           SERIAL                   NOT NULL PRIMARY KEY,
+  "session_id"   VARCHAR(50)              NOT NULL,
+  "created_date" TIMESTAMP WITH TIME ZONE NOT NULL
+);
 --
 -- Create model CartItem
 --
-CREATE TABLE "shop_cartitem" ("id" serial NOT NULL PRIMARY KEY, "quantity" integer NOT NULL CHECK ("quantity" >= 0), "cart_id" integer NOT NULL);
+CREATE TABLE "shop_cartitem" (
+  "id"       SERIAL  NOT NULL PRIMARY KEY,
+  "quantity" INTEGER NOT NULL CHECK ("quantity" >= 0),
+  "cart_id"  INTEGER NOT NULL
+);
 --
 -- Create model Category
 --
-CREATE TABLE "shop_category" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(25) NOT NULL);
+CREATE TABLE "shop_category" (
+  "id"   SERIAL      NOT NULL PRIMARY KEY,
+  "name" VARCHAR(25) NOT NULL
+);
 --
 -- Create model Invoice
 --
-CREATE TABLE "shop_invoice" ("id" serial NOT NULL PRIMARY KEY, "created_date" timestamp with time zone NOT NULL, "stripe_token" varchar(100) NOT NULL, "city" varchar(30) NOT NULL, "country" varchar(20) NOT NULL, "postal_code" varchar(10) NOT NULL, "street_1" varchar(50) NOT NULL, "street_2" varchar(50) NOT NULL, "name_first" varchar(30) NOT NULL, "name_last" varchar(30) NOT NULL, "phone" varchar(15) NOT NULL, "total" numeric(10, 2) NULL, "shipping" numeric(10, 2) NOT NULL);
+CREATE TABLE "shop_invoice" (
+  "id"           SERIAL                   NOT NULL PRIMARY KEY,
+  "created_date" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "stripe_token" VARCHAR(100)             NOT NULL,
+  "city"         VARCHAR(30)              NOT NULL,
+  "country"      VARCHAR(20)              NOT NULL,
+  "postal_code"  VARCHAR(10)              NOT NULL,
+  "street_1"     VARCHAR(50)              NOT NULL,
+  "street_2"     VARCHAR(50)              NOT NULL,
+  "name_first"   VARCHAR(30)              NOT NULL,
+  "name_last"    VARCHAR(30)              NOT NULL,
+  "phone"        VARCHAR(15)              NOT NULL,
+  "total"        NUMERIC(10, 2)           NULL,
+  "shipping"     NUMERIC(10, 2)           NOT NULL
+);
 --
 -- Create model LineItem
 --
-CREATE TABLE "shop_lineitem" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(50) NOT NULL, "description" varchar(50) NOT NULL, "price" numeric(10, 2) NOT NULL, "sku" varchar(50) NOT NULL, "quantity" integer NOT NULL CHECK ("quantity" >= 0), "invoice_id" integer NOT NULL);
+CREATE TABLE "shop_lineitem" (
+  "id"          SERIAL         NOT NULL PRIMARY KEY,
+  "name"        VARCHAR(50)    NOT NULL,
+  "description" VARCHAR(50)    NOT NULL,
+  "price"       NUMERIC(10, 2) NOT NULL,
+  "sku"         VARCHAR(50)    NOT NULL,
+  "quantity"    INTEGER        NOT NULL CHECK ("quantity" >= 0),
+  "invoice_id"  INTEGER        NOT NULL
+);
 --
 -- Create model Product
 --
-CREATE TABLE "shop_product" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(50) NOT NULL, "price" numeric(10, 2) NOT NULL, "quantity" integer NOT NULL CHECK ("quantity" >= 0), "description" text NOT NULL, "sku" varchar(10) NOT NULL, "image" varchar(100) NOT NULL);
-CREATE TABLE "shop_product_categories" ("id" serial NOT NULL PRIMARY KEY, "product_id" integer NOT NULL, "category_id" integer NOT NULL);
+CREATE TABLE "shop_product" (
+  "id"          SERIAL         NOT NULL PRIMARY KEY,
+  "name"        VARCHAR(50)    NOT NULL,
+  "price"       NUMERIC(10, 2) NOT NULL,
+  "quantity"    INTEGER        NOT NULL CHECK ("quantity" >= 0),
+  "description" TEXT           NOT NULL,
+  "sku"         VARCHAR(10)    NOT NULL,
+  "image"       VARCHAR(100)   NOT NULL
+);
+CREATE TABLE "shop_product_categories" (
+  "id"          SERIAL  NOT NULL PRIMARY KEY,
+  "product_id"  INTEGER NOT NULL,
+  "category_id" INTEGER NOT NULL
+);
 --
 -- Add field product to lineitem
 --
-ALTER TABLE "shop_lineitem" ADD COLUMN "product_id" integer NULL;
+ALTER TABLE "shop_lineitem" ADD COLUMN "product_id" INTEGER NULL;
 ALTER TABLE "shop_lineitem" ALTER COLUMN "product_id" DROP DEFAULT;
 --
 -- Add field product to cartitem
 --
-ALTER TABLE "shop_cartitem" ADD COLUMN "product_id" integer NOT NULL;
+ALTER TABLE "shop_cartitem" ADD COLUMN "product_id" INTEGER NOT NULL;
 ALTER TABLE "shop_cartitem" ALTER COLUMN "product_id" DROP DEFAULT;
 ALTER TABLE "shop_cartitem" ADD CONSTRAINT "shop_cartitem_cart_id_6bf1447e_fk_shop_cart_id" FOREIGN KEY ("cart_id") REFERENCES "shop_cart" ("id") DEFERRABLE INITIALLY DEFERRED;
 CREATE INDEX "shop_cartitem_c44d83f7" ON "shop_cartitem" ("cart_id");

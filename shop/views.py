@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from shop.models import Category, Product
 
@@ -46,3 +47,24 @@ def product_detail(request, product_id):
     context = {'product': product}
 
     return render(request, "shop/product_detail.html", context)
+
+
+def cart_contents(request):
+    """
+    Fetch a product by its id from the database and render it in a detail view
+    """
+    product = Product.objects.all()
+    context = {'product': product}
+
+    return render(request, "shop/cart_contents.html", context)
+
+
+def cart_add(request, product_id):
+
+    if request.method == "POST":
+
+        product = Product.objects.get(id=product_id)
+        request.cart.add_item(product)
+
+
+    return HttpResponseRedirect("/cart/")

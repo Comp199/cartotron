@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.name }}{% endblock title %}
+{% block title %}Product - {{ product.name }}{% endblock title %}
 
 {% block content %}
 
@@ -12,6 +12,13 @@
             <p>
                 {{ product.description }}
             </p>
+            <div>
+                <!--'product' from context passed to render function in shops/views.py
+                    long_description from product model (database column)
+                    safe: don't escape html -->
+                {{ product.long_description|safe }}
+
+            </div>
 
         </div>
         <div class="col-md-2">
@@ -19,4 +26,77 @@
         </div>
     </div>
 
+
+    <div class="container-fluid">
+    <div class="content-wrapper">
+		<div class="item-container">
+			<div class="container">
+				<div class="col-md-12">
+					<div class="product col-md-3 service-image-left">
+
+						<center>
+							<img id="item-display" src="{{ product.image.url }}" alt=""></img>
+						</center>
+
+				</div>
+
+				<div class="col-md-7">
+					<div class="product-title">{{ product.name }}</div>
+					<div class="product-desc">{{ product.description }}</div>
+					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+					<hr>
+					<div class="product-price">$ {{ product.price }}</div>
+					<div class="product-stock">In Stock</div>
+					<hr>
+					<div class="btn-group cart">
+                        <form method="post" action="/cart/add/{{ product.id }}/">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">
+                                Add to cart
+                            </button>
+
+                        </form>
+					</div>
+					<div class="btn-group wishlist">
+						<button type="button" class="btn btn-danger">
+							Add to wishlist
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="col-md-12 product-info">
+					<ul id="myTab" class="nav nav-tabs nav_tabs">
+
+						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+						<li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+						<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
+
+					</ul>
+				<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade in active" id="service-one">
+
+							<section class="container product-info">
+                                {{ product.long_description|safe }}
+							</section>
+
+						</div>
+					<div class="tab-pane fade" id="service-two">
+
+						<section class="container">
+                            {% lorem 3 p %}
+
+						</section>
+
+					</div>
+					<div class="tab-pane fade" id="service-three">
+                        {% lorem 3 p %}
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock content %}

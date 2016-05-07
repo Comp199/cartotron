@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'sorl.thumbnail',
     'storages',
-    'frontend',
+    'tinymce',
     'shop',
 )
 
@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'shop.middleware.CartMiddleware',
 )
 
 ROOT_URLCONF = 'cartotron.urls'
@@ -71,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.categories',
+                'shop.context_processors.cart',
             ],
         },
     },
