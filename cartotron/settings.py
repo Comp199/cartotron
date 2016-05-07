@@ -84,14 +84,20 @@ WSGI_APPLICATION = 'cartotron.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cartotron',
-        'USER': 'cartotron',
-        'PASSWORD': 'cartotron',
-        'HOST': '127.0.0.1',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'cartotron.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sql',
+#         'NAME': 'cartotron',
+#         'USER': 'cartotron',
+#         'PASSWORD': 'cartotron',
+#         'HOST': '127.0.0.1',
+#         'PORT': 5432,
+#     }
+# }
 
 
 # Internationalization
