@@ -66,5 +66,14 @@ def cart_add(request, product_id):
         product = Product.objects.get(id=product_id)
         request.cart.add_item(product)
 
+    return HttpResponseRedirect("/cart/")
+
+
+def cart_remove(request, product_id):
+
+    if request.method == "POST":
+
+        product = Product.objects.get(id=product_id)
+        request.cart.remove_item(product)
 
     return HttpResponseRedirect("/cart/")
