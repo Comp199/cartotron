@@ -64,8 +64,8 @@ class Cart(models.Model):
 
     def remove_item(self, product):
 
-        instance = self.items.get(product=product)
-        instance.delete()
+        for instance in self.items.filter(product=product):
+            instance.delete()
 
 
 class CartItem(models.Model):
