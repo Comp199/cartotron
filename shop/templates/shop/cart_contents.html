@@ -45,9 +45,13 @@
                                 <td class="col-sm-1 col-md-1 text-center"><strong>${{ item.product.price }}</strong></td>
                                 <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
                                 <td class="col-sm-1 col-md-1">
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span> Remove
-                                </button></td>
+                                <form method = "post" action="/cart/remove/{{ item.product.id }}/">
+                                    <button type="submit" class="btn btn-danger">
+                                        {% csrf_token %}
+                                        <span class="glyphicon glyphicon-remove"></span> Remove
+                                    </button>
+                                </form>
+                                </td>
                             </tr>
 
                         {% endfor %}

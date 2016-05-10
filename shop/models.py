@@ -60,6 +60,11 @@ class Cart(models.Model):
 
         self.items.create(product=product, quantity=1)
 
+    def remove_item(self, product):
+
+        for instance in self.items.filter(product=product):
+            instance.delete()
+
 
 class CartItem(models.Model):
 
