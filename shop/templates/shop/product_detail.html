@@ -1,72 +1,48 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}Product - {{ product.name }}{% endblock title %}
 
 {% block content %}
 
     <div class="row">
-        <div class="col-md-10">
-
-            <h3>{{ product.name }}</h3>
-
-            <p>
-                {{ product.description }}
-            </p>
-            <div>
-                <!--'product' from context passed to render function in shops/views.py
-                    long_description from product model (database column)
-                    safe: don't escape html -->
-                {{ product.long_description|safe }}
-
-            </div>
-
+        <div class="col-md-3">
+            <a class="img-thumbnail">
+            {% thumbnail product.image "230x310" as im %}
+                <img id="" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="">
+            {% endthumbnail %}
+            </a>
         </div>
-        <div class="col-md-2">
-            <a class="btn btn-block btn-success">Add to cart</a>
+
+        <div class="col-md-7">
+            <div class="product-title">{{ product.name }}</div>
+            <div class="product-desc">{{ product.description }}</div>
+            <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+            <hr>
+            <div class="product-price">$ {{ product.price }}</div>
+            <div class="product-stock">In Stock</div>
+            <hr>
+
+            <div class="btn-group cart">
+                <form method="post" action="/cart/add/{{ product.id }}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">
+                        Add to cart
+                    </button>
+
+                </form>
+            </div>
+            <div class="btn-group wishlist">
+                <button type="button" class="btn btn-danger">
+                    Add to wishlist
+                </button>
+            </div>
         </div>
     </div>
 
+    <div class="row">
 
-    <div class="container-fluid">
-    <div class="content-wrapper">
-		<div class="item-container">
-			<div class="container">
-				<div class="col-md-12">
-					<div class="product col-md-3 service-image-left">
-
-						<center>
-							<img id="item-display" src="{{ product.image.url }}" alt=""></img>
-						</center>
-
-				</div>
-
-				<div class="col-md-7">
-					<div class="product-title">{{ product.name }}</div>
-					<div class="product-desc">{{ product.description }}</div>
-					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
-					<hr>
-					<div class="product-price">$ {{ product.price }}</div>
-					<div class="product-stock">In Stock</div>
-					<hr>
-					<div class="btn-group cart">
-                        <form method="post" action="/cart/add/{{ product.id }}/">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success">
-                                Add to cart
-                            </button>
-
-                        </form>
-					</div>
-					<div class="btn-group wishlist">
-						<button type="button" class="btn btn-danger">
-							Add to wishlist
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid">
-			<div class="col-md-12 product-info">
+        <div class="col-md-12 product-info">
 					<ul id="myTab" class="nav nav-tabs nav_tabs">
 
 						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
@@ -96,7 +72,7 @@
 				</div>
 				<hr>
 			</div>
-		</div>
+
 	</div>
-</div>
+
 {% endblock content %}

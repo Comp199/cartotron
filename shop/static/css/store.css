@@ -150,7 +150,7 @@ footer {
 	position: relative;
 	overflow: hidden;
 	max-width: 100%;
-	height: 321px;
+	/*height: 321px;*/
 	width: 130px;
 }
 
@@ -181,14 +181,14 @@ footer {
 	opacity: 1;
 }
 
-.service-image-left {
-	padding-right: 50px;
-}
+/*.service-image-left {*/
+	/*padding-right: 50px;*/
+/*}*/
 
 .service-image-right {
 	padding-left: 50px;
 }
 
-.service-image-left > center > img,.service-image-right > center > img{
-	max-height: 155px;
-}
+/*.service-image-left > center > img,.service-image-right > center > img{*/
+	/*max-height: 155px;*/
+/*}*/

@@ -15,5 +15,7 @@ class CartMiddleware(object):
         except Cart.DoesNotExist:
             cart = Cart()
             cart.session_id = request.session.session_key
+            request.session.modified = True
+            request.session.save()
 
         request.cart = cart

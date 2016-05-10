@@ -30,8 +30,6 @@ class Product(models.Model):
     sku = models.CharField(max_length=10)
     image = models.ImageField(upload_to='products/images/', null=True, blank=True)
     long_description = tinymce_models.HTMLField(blank=True)
-    review = tinymce_models.HTMLField(blank=True)
-
 
     def __str__(self):
         return self.name
