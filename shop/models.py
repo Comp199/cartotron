@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce import models as tinymce_models
+from decimal import Decimal
 
 
 # Create your models here. Database
@@ -43,6 +44,21 @@ class Cart(models.Model):
     def __str__(self):
         return self.session_id
 
+    def subtotal(self):
+        """
+        Returns the subtotal for all items in the cart
+        """
+        amount = 0
+        for item in self.items.all():
+            amount += item.subtotal()
+        return amount
+
+    def tax(self):
+        """
+        Calculate tax.
+        """
+        return round(self.subtotal() * Decimal("0.12"), 2)
+
     def total(self):
         """
         Returns the total for all items in the cart.  If the cart does not have an id (or, it has not been
@@ -51,17 +67,30 @@ class Cart(models.Model):
         if not self.id:
             return 0
 
-        return 55
+        subtotal = self.subtotal()
+        total = round(subtotal * Decimal("1.12"), 2)
+
+        return total
 
     def add_item(self, product):
-
+        """
+        Add an item to the cart. If item is already in the cart, the items quantity will be incremented by 1.
+        """
         if not self.id:
             self.save()
 
-        self.items.create(product=product, quantity=1)
+        try:
+            item = CartItem.objects.get(product=product, cart=self)
+            item.quantity += 1
+            item.save()
+
+        except CartItem.DoesNotExist:
+            self.items.create(product=product, quantity=1)
 
     def remove_item(self, product):
-
+        """
+        Remove the item from the cart.
+        """
         for instance in self.items.filter(product=product):
             instance.delete()
 
@@ -71,6 +100,12 @@ class CartItem(models.Model):
     product = models.ForeignKey('Product')
     cart = models.ForeignKey('Cart', related_name='items')
     quantity = models.PositiveIntegerField()
+
+    def subtotal(self):
+        """
+        Returns the subtotal for each individual item in the cart.
+        """
+        return self.product.price * self.quantity
 
 
 class Invoice(models.Model):
