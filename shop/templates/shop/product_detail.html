@@ -20,7 +20,7 @@
             <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
             <hr>
             <div class="product-price">$ {{ product.price }}</div>
-            <div class="product-stock">In Stock</div>
+            <div class="product-stock">{% if product.quantity == 0 %} <div class="product-empty"> Sold Out </div> {% elif product.quantity <= 10 %} <div class="product-empty">Only {{ product.quantity }} Left</div>  {% else %}In Stock{% endif %}</div>
             <hr>
 
             <div class="btn-group cart">

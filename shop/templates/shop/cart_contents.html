@@ -34,9 +34,9 @@
 
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><a href="#">{{ item.product.name }}</a></h4>
+                                        <h4 class="media-heading"><a href="\products\{{ item.product_id }}">{{ item.product.name }}</a></h4>
                                         <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
-                                        <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                        <span>Status: </span><span class="text-success"><strong>{% if item.product.quantity <= 5 %}  Running Out! {% else %} In Stock {% endif %}</strong></span>
                                     </div>
                                 </div>
                                 </td>
