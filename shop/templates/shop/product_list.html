@@ -27,16 +27,16 @@
 {#                        <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a></h4>#}
                         <p>{{ product.description }}</p>
                     </div>
-                    <div class="ratings">
-                        <p class="pull-right">12 reviews</p>
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                        </p>
-                    </div>
+{#                    <div class="ratings">#}
+{#                        <p class="pull-right">12 reviews</p>#}
+{#                        <p>#}
+{#                            <span class="glyphicon glyphicon-star"></span>#}
+{#                            <span class="glyphicon glyphicon-star"></span>#}
+{#                            <span class="glyphicon glyphicon-star"></span>#}
+{#                            <span class="glyphicon glyphicon-star"></span>#}
+{#                            <span class="glyphicon glyphicon-star-empty"></span>#}
+{#                        </p>#}
+{#                    </div>#}
                     <div class="margin-top10" style="padding: 6px;">
                         <form method="post" action="/cart/add/{{ product.id }}/">
                             {% csrf_token %}
