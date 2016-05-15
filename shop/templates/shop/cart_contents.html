@@ -26,7 +26,7 @@
                             <tr>
                                 <td class="col-sm-8 col-md-6">
                                 <div class="media">
-                                    <a class="thumbnail pull-left" href="#">
+                                    <a class="thumbnail pull-left" href="\products\{{ item.product_id }}">
 
                                         {% thumbnail item.product.image "72x72" as im %}
                                              <img class="media-object" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"72x72" }}">
@@ -35,7 +35,15 @@
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading"><a href="\products\{{ item.product_id }}">{{ item.product.name }}</a></h4>
-                                        <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+                                        <h5 class="media-heading">
+
+                                            {% for category in item.product.categories.all %}
+                                                {% if forloop.first %}in {% endif %}
+                                                    <a href="\categories\{{ category.id }}">{{ category.name }}</a>
+                                                {% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+
+                                        </h5>
                                         <span>Status: </span><span class="text-success"><strong>{% if item.product.quantity <= 5 %}  Running Out! {% else %} In Stock {% endif %}</strong></span>
                                     </div>
                                 </div>

@@ -13,9 +13,11 @@
                 <div class="thumbnail">
                     {% if product.image %}
 
+                        <a href="/products/{{ product.id }}/">
                         {% thumbnail product.image "260x220" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"260x220" }}">
                         {% endthumbnail %}
+                        </a>
 
                     {% else %}
                         <img src="http://placehold.it/260x220" alt="">
