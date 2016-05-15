@@ -1,6 +1,6 @@
 from django.db import models
 from tinymce import models as tinymce_models
-from decimal import Decimal
+from decimal import *
 
 
 # Create your models here. Database
@@ -57,7 +57,10 @@ class Cart(models.Model):
         """
         Calculate tax.
         """
-        return round(self.subtotal() * Decimal("0.12"), 2)
+        tax = Decimal(self.subtotal() * Decimal('0.12')).quantize(Decimal('0.01'), rounding=ROUND_UP)
+        # tax = Decimal(self.subtotal() * Decimal('0.12'))
+
+        return tax
 
     def total(self):
         """
@@ -68,24 +71,27 @@ class Cart(models.Model):
             return 0
 
         subtotal = self.subtotal()
-        total = round(subtotal * Decimal("1.12"), 2)
+        tax = self.tax()
 
-        return total
+        total_price = Decimal(subtotal + tax).quantize(Decimal('0.01'), rounding=ROUND_UP)
 
-    def add_item(self, product):
+        return total_price
+
+    def add_item(self, product, quantity=1):
         """
         Add an item to the cart. If item is already in the cart, the items quantity will be incremented by 1.
         """
+
         if not self.id:
             self.save()
 
         try:
             item = CartItem.objects.get(product=product, cart=self)
-            item.quantity += 1
+            item.quantity += quantity
             item.save()
 
         except CartItem.DoesNotExist:
-            self.items.create(product=product, quantity=1)
+            self.items.create(product=product, quantity=quantity)
 
     def remove_item(self, product):
         """
@@ -105,7 +111,7 @@ class CartItem(models.Model):
         """
         Returns the subtotal for each individual item in the cart.
         """
-        return self.product.price * self.quantity
+        return Decimal(self.product.price * self.quantity).quantize(Decimal('0.01'), rounding=ROUND_UP)
 
 
 class Invoice(models.Model):
