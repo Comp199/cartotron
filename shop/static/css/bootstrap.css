@@ -3524,6 +3524,7 @@ tbody.collapse.in {
 .dropdown-toggle:focus {
   outline: 0;
 }
+/* change background-color to purple from white */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -3537,7 +3538,7 @@ tbody.collapse.in {
   list-style: none;
   font-size: 13px;
   text-align: left;
-  background-color: #ffffff;
+  background-color: #7030a0;
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
@@ -3556,13 +3557,14 @@ tbody.collapse.in {
   overflow: hidden;
   background-color: #e5e5e5;
 }
+/* changed color to grey from white */
 .dropdown-menu > li > a {
   display: block;
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #444444;
+  color: #ffffff;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,

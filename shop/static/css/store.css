@@ -62,6 +62,68 @@ footer {
 }
 
 /*********************************************
+        		Navbar
+*********************************************/
+/* Navbar colour */
+.navbar-store {
+  background-color: #7030a0;
+  border-color: #7030a0;
+  border-bottom: #ffffff;
+}
+/* Home Colour - "navbar-brand" in bootstrap is the primary format, this is just the colour */
+.navbar-store .navbar-brand-store {
+  color: #ffffff;
+}
+/* Home Hover */
+.navbar-store .navbar-brand-store:hover,
+.navbar-store .navbar-brand-store:focus {
+  color: #38c6d9;
+  background-color: transparent;
+}
+/* Navbar Links */
+.navbar-store .navbar-nav > li > a {
+  color: #ffffff;
+}
+/* Navbar Hover */
+.navbar-store .navbar-nav > li > a:hover,
+.navbar-store .navbar-nav > li > a:focus {
+  color: #38c6d9;
+  background-color: transparent;
+}
+/* active drop down */
+.navbar-store .navbar-nav > .active > a,
+.navbar-store .navbar-nav > .active > a:hover,
+.navbar-store .navbar-nav > .active > a:focus {
+  color: #38c6d9;
+  background-color: transparent;
+}
+/* collapse drop down */
+.navbar-store .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-store .navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #38c6d9;
+  background-color: transparent;
+}
+/* open drop down */
+.navbar-store .navbar-nav > .open > a,
+.navbar-store .navbar-nav > .open > a:hover,
+.navbar-store .navbar-nav > .open > a:focus {
+  background-color: transparent;
+  color: #38c6d9;
+}
+/* collapse menu drop down link text */
+@media (max-width: 767px) {
+  .navbar-store .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+
+/* made some changes to dropdown-menu in bootstrap */
+
+
+
+
+
+
+/*********************************************
         		Theme Elements
 *********************************************/
 
