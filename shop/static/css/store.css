@@ -41,6 +41,10 @@ body {
 .thumbnail img {
     width: 100%;
 }
+/* make the border on the category pictures transparent */
+.thumbnail-category {
+    border: 1px solid transparent;
+}
 
 .ratings {
     padding-right: 10px;
