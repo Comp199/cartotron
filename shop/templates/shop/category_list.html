@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}Categories{% endblock title %}
 
@@ -8,8 +9,18 @@
     <div class="row">
         {% for category in categories %}
             <div class="col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <a href="\categories\{{ category.id }}"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=IMAGE&w=242&h=200" alt="..."></a>
+                <div class="thumbnail thumbnail-category">
+                    {% if category.image %}
+
+                        <a href="/categories/{{ category.id}}/">
+                            {% thumbnail category.image "672x254" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ category.name }}">
+                            {% endthumbnail %}
+                        </a>
+
+                    {% else %}
+                        <img src="http://placehold.it/260x220" alt="">
+                    {%  endif %}
                 </div>
             </div>
         {% endfor %}
