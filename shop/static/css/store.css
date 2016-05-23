@@ -176,8 +176,8 @@ footer {
 }
 
 .search-box{
-	margin: 0;
 	float: right;
+	margin: 0;
 }
 
 /*********************************************
@@ -258,7 +258,7 @@ footer {
 
 .service-image-right {
 	padding-left: 50px;
-}
+}}
 
 /*.service-image-left > center > img,.service-image-right > center > img{*/
 	/*max-height: 155px;*/
