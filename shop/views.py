@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from shop.forms import CheckoutForm
-from shop.models import Category, Product
+from shop.models import Category, Product, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -104,6 +104,31 @@ def search(request):
             return HttpResponseRedirect("/categories/" + str(found.id))
 
         return HttpResponseRedirect("/products/")
+
+
+def cart_update(request):
+
+    if request.method == "POST":
+
+        for item, quantity in request.POST.items():
+
+            if item.startswith("item-"):
+                quantity = int(quantity)
+                item_id = int(item.split("-")[1])
+
+                if quantity == 0:
+                    request.cart.items.filter(id=item_id).delete()
+
+                else:
+
+                    try:
+                        cart_item = request.cart.items.get(id=item_id)
+                        cart_item.quantity = quantity
+                        cart_item.save()
+                    except CartItem.DoesNotExist:
+                        pass
+
+    return HttpResponseRedirect("/cart/")
 
 
 def checkout_step_1(request):
