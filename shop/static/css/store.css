@@ -182,6 +182,7 @@ footer {
 .search-box{
 	float: right;
 	margin: 0;
+	position: relative;
 }
 
 /*********************************************
