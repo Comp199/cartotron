@@ -1,5 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from shop.forms import CheckoutForm
 from shop.models import Category, Product
 
 
@@ -77,3 +79,19 @@ def cart_remove(request, product_id):
         request.cart.remove_item(product)
 
     return HttpResponseRedirect("/cart/")
+
+
+def checkout_step_1(request):
+
+    if request.method == "POST":
+        form = CheckoutForm(data=request.POST)
+
+        if form.is_valid():
+            pass
+
+    else:
+        form = CheckoutForm()
+
+    context = {'form': form}
+
+    return render(request, 'shop/checkout_step_1.html', context)
