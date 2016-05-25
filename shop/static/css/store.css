@@ -41,6 +41,10 @@ body {
 .thumbnail img {
     width: 100%;
 }
+/* make the border on the category pictures transparent */
+.thumbnail-category {
+    border: 1px solid transparent;
+}
 
 .ratings {
     padding-right: 10px;
@@ -173,6 +177,11 @@ footer {
 
 .product-empty{
 	color: #d9230f;
+}
+
+.search-box{
+	margin: 0;
+	float: right;
 }
 
 /*********************************************

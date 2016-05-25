@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from shop.forms import CheckoutForm
 from shop.models import Category, Product
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def category_list(request):
@@ -79,6 +80,30 @@ def cart_remove(request, product_id):
         request.cart.remove_item(product)
 
     return HttpResponseRedirect("/cart/")
+
+
+def search(request):
+    if request.method == "GET":
+
+        search_query = request.GET['q']
+
+        try:
+            found = Product.objects.get(name=search_query)
+        except ObjectDoesNotExist:
+            found = ""
+
+        if found != "":
+            return HttpResponseRedirect("/products/" + str(found.id))
+
+        try:
+            found = Category.objects.get(name=search_query)
+        except ObjectDoesNotExist:
+            found = ""
+
+        if found != "":
+            return HttpResponseRedirect("/categories/" + str(found.id))
+
+        return HttpResponseRedirect("/products/")
 
 
 def checkout_step_1(request):
