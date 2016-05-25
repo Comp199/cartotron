@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from shop.models import Category, Product
-from django.core.exceptions import ObjectDoesNotExist
+
+from shop.forms import CheckoutForm
+from shop.models import Category, Product, CartItem
 
 
 def category_list(request):
@@ -84,21 +85,60 @@ def search(request):
     if request.method == "GET":
 
         search_query = request.GET['q']
+        product_query = list(Product.objects.all())
+        products = list()
 
-        try:
-            found = Product.objects.get(name=search_query)
-        except ObjectDoesNotExist:
-            found = ""
+        for product in product_query:
+            if search_query in product.name:
+                products.append(product)
 
-        if found != "":
-            return HttpResponseRedirect("/products/" + str(found.id))
+        category_query = list(Product.objects.all())
+        categories = list()
 
-        try:
-            found = Category.objects.get(name=search_query)
-        except ObjectDoesNotExist:
-            found = ""
+        for category in category_query:
+            if search_query in category.name:
+                categories.append(category)
 
-        if found != "":
-            return HttpResponseRedirect("/categories/" + str(found.id))
+        context = {'products': products, 'categories': categories}
+        return render(request, "shop/search_results.html", context)
 
-        return HttpResponseRedirect("/products/")
+
+def cart_update(request):
+
+    if request.method == "POST":
+
+        for item, quantity in request.POST.items():
+
+            if item.startswith("item-"):
+                quantity = int(quantity)
+                item_id = int(item.split("-")[1])
+
+                if quantity <= 0:
+                    request.cart.items.filter(id=item_id).delete()
+
+                else:
+
+                    try:
+                        cart_item = request.cart.items.get(id=item_id)
+                        cart_item.quantity = quantity
+                        cart_item.save()
+                    except CartItem.DoesNotExist:
+                        pass
+
+    return HttpResponseRedirect("/cart/")
+
+
+def checkout_step_1(request):
+
+    if request.method == "POST":
+        form = CheckoutForm(data=request.POST)
+
+        if form.is_valid():
+            pass
+
+    else:
+        form = CheckoutForm()
+
+    context = {'form': form}
+
+    return render(request, 'shop/checkout_step_1.html', context)
