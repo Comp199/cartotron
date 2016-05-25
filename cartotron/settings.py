@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'storages',
     'tinymce',
     'shop',
-    #'payments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,24 +101,6 @@ DATABASES = {
 #     }
 # }
 
-STRIPE_SECRET_KEY = os.environ.get(
-    "STRIPE_SECRET_KEY",
-    ""
-)
-
-STRIPE_PUBLIC_KEY = os.environ.get(
-    "STRIPE_PUBLIC_KEY",
-    ""
-)
-
-PAYMENT_PLANS = {
-    "fake": {
-        "stripe_plan_id": "one-time",
-        "name": "fake payment",
-        "description": "The one-time fake payment for a product",
-        "price": 0,
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

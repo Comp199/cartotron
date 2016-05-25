@@ -50,7 +50,7 @@
                                 </td>
 
                                 <td class="col-sm-1 col-md-1" style="text-align: center">
-                                    <input type="number" class="form-control" value="{{ item.quantity }}">
+                                    <input type="number" class="form-control cart-quantity" name="item-{{ item.id }}" value="{{ item.quantity }}">
                                 </td>
 
                                 <td class="col-sm-1 col-md-1 text-center"><strong>${{ item.product.price }}</strong></td>
@@ -64,6 +64,14 @@
                                     </button>
                                 </form>
 
+                                </td>
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    Your cart is empty.
                                 </td>
                             </tr>
 
@@ -100,18 +108,19 @@
                         <tr>
                             <td>   </td>
                             <td>   </td>
-                            <td>   </td>
                             <td>
-
-                                    <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                                    </a>
-
+                                <button id="update-cart" class="btn btn-warning">Update Cart</button>
                             </td>
                             <td>
-                            <button type="button" class="btn btn-success">
-                                Checkout <span class="glyphicon glyphicon-play"></span>
-                            </button></td>
+                                <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success">
+                                    Checkout <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -119,3 +128,25 @@
         </div>
 
 {% endblock content %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        $(function () {
+            $("#update-cart").on("click", function(e){
+                var $form = $("<form>");
+
+                $(".cart-quantity").each(function(index, el){
+                   $form.append(el);
+                });
+
+                $form.attr("action", "/cart/update/");
+                $form.attr("method", "post");
+                $form.append("{% csrf_token %}");
+
+                $form.submit();
+            });
+        });
+    </script>
+
+{% endblock scripts %}

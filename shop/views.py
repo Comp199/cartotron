@@ -85,20 +85,20 @@ def search(request):
 
         search_query = request.GET['q']
 
-        product_set = list(Product.objects.all())
-        product = list()
+        try:
+            found = Product.objects.get(name=search_query)
+        except ObjectDoesNotExist:
+            found = ""
 
-        for found in product_set:
-            if search_query in found.name:
-                product.append(found)
+        if found != "":
+            return HttpResponseRedirect("/products/" + str(found.id))
 
-        category_set = list(Category.objects.all())
-        category = list()
+        try:
+            found = Category.objects.get(name=search_query)
+        except ObjectDoesNotExist:
+            found = ""
 
-        for found in category_set:
-            if search_query in found.name:
-                category.append(found)
+        if found != "":
+            return HttpResponseRedirect("/categories/" + str(found.id))
 
-        context = {'products': product, 'categories': category}
-
-        return render(request, "shop/search_results.html", context)
+        return HttpResponseRedirect("/products/")
