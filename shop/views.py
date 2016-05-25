@@ -116,7 +116,7 @@ def cart_update(request):
                 quantity = int(quantity)
                 item_id = int(item.split("-")[1])
 
-                if quantity == 0:
+                if quantity <= 0:
                     request.cart.items.filter(id=item_id).delete()
 
                 else:
