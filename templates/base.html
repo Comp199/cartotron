@@ -33,9 +33,9 @@ Includes the following blocks for overriding:
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
 
-    <footer class="container-fluid text-left">
-	    &copy; Novelty Knickknacks 2016
-	</footer>
+    {% block scripts %}
+    {% endblock scripts %}
+
 
 </body>
 </html>
