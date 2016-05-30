@@ -1,5 +1,6 @@
 from django import forms
 
+
 class CheckoutForm(forms.Form):
 
     postal_error_messages = {
@@ -36,12 +37,17 @@ class CheckoutForm(forms.Form):
         (SASKATCHEWAN, 'Saskatchewan'),
         (YUKON, 'Yukon'),
     )
+    CANADA = 'ca'
+    COUNTRY_CHOICES =(
+        (CANADA, 'Canada'),
+    )
 
     first_name = forms.CharField()
     last_name = forms.CharField()
     address_1 = forms.CharField()
     address_2 = forms.CharField(required=False)
     city = forms.CharField()
+    country = forms.ChoiceField(choices=COUNTRY_CHOICES, initial=CANADA, required=True)
     province = forms.ChoiceField(choices=PROVINCE_CHOICES, required=True)
     postal_code = forms.RegexField(regex=r'[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d', error_messages=postal_error_messages)
     phone_number = forms.CharField(required=False)
