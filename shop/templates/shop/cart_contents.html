@@ -107,7 +107,12 @@
                         </tr>
                         <tr>
                             <td>   </td>
-                            <td>   </td>
+                            <td>
+                                <form action="/cart/remove_all/" method="post">
+                                    {% csrf_token %}
+                                    <button id="update-cart" class="btn btn-warning" type="submit">Remove All</button>
+                                </form>
+                            </td>
                             <td>
                                 <button id="update-cart" class="btn btn-warning">Update Cart</button>
                             </td>

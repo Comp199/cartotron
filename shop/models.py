@@ -100,6 +100,13 @@ class Cart(models.Model):
         for instance in self.items.filter(product=product):
             instance.delete()
 
+    def remove_all(self):
+        """
+        Remove all the items from the cart.
+        """
+        for instance in self.items.all():
+            instance.delete()
+
 
 class CartItem(models.Model):
 

@@ -92,14 +92,17 @@ def search(request):
             if search_query in product.name:
                 products.append(product)
 
-        category_query = list(Product.objects.all())
+        category_query = list(Category.objects.all())
         categories = list()
 
         for category in category_query:
             if search_query in category.name:
                 categories.append(category)
 
-        context = {'products': products, 'categories': categories}
+        context = {
+            'products': products,
+            'categories': categories,
+        }
         return render(request, "shop/search_results.html", context)
 
 
@@ -142,3 +145,11 @@ def checkout_step_1(request):
     context = {'form': form}
 
     return render(request, 'shop/checkout_step_1.html', context)
+
+
+def cart_remove_all(request):
+
+    if request.method == "POST":
+        request.cart.remove_all()
+
+    return HttpResponseRedirect("/cart/")
