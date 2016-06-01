@@ -22,7 +22,7 @@ class CheckoutForm(forms.Form):
     PRINCE_EDWARD_ISLAND = 'PE'
 
     PROVINCE_CHOICES = (
-        (None, '--- Choose A Province ---'),
+        ('', '--- Choose A Province ---'),
         (ALBERTA, 'Alberta'),
         (BRITISH_COLUMBIA, 'British Columbia'),
         (MANITOBA, 'Manitoba'),
@@ -37,7 +37,7 @@ class CheckoutForm(forms.Form):
         (SASKATCHEWAN, 'Saskatchewan'),
         (YUKON, 'Yukon'),
     )
-    CANADA = 'ca'
+    CANADA = 'Canada'
     COUNTRY_CHOICES =(
         (CANADA, 'Canada'),
     )
