@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_extensions',
-    'bootstrap3',
     'sorl.thumbnail',
     'storages',
     'tinymce',
@@ -74,7 +73,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.categories',
                 'shop.context_processors.cart',
-                'shop.context_processors.stripe',
             ],
         },
     },
@@ -124,6 +122,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
-
-STRIPE_PUBLISH_KEY = ''
-STRIPE_SECRET_KEY = ''

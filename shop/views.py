@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from shop.forms import CheckoutForm
+
 from shop.models import Category, Product, CartItem, Invoice, Decimal
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
@@ -93,24 +94,22 @@ def search(request):
     if request.method == "GET":
 
         search_query = request.GET['q']
+        product_query = list(Product.objects.all())
+        products = list()
 
-        try:
-            found = Product.objects.get(name=search_query)
-        except ObjectDoesNotExist:
-            found = ""
+        for product in product_query:
+            if search_query in product.name:
+                products.append(product)
 
-        if found != "":
-            return HttpResponseRedirect("/products/" + str(found.id))
+        category_query = list(Product.objects.all())
+        categories = list()
 
-        try:
-            found = Category.objects.get(name=search_query)
-        except ObjectDoesNotExist:
-            found = ""
+        for category in category_query:
+            if search_query in category.name:
+                categories.append(category)
 
-        if found != "":
-            return HttpResponseRedirect("/categories/" + str(found.id))
-
-        return HttpResponseRedirect("/products/")
+        context = {'products': products, 'categories': categories}
+        return render(request, "shop/search_results.html", context)
 
 
 def cart_update(request):

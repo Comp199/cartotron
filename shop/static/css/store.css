@@ -180,8 +180,9 @@ footer {
 }
 
 .search-box{
-	margin: 0;
 	float: right;
+	margin: 0;
+	position: relative;
 }
 
 /*********************************************
