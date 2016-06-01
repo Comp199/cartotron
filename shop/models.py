@@ -3,6 +3,7 @@ from tinymce import models as tinymce_models
 from decimal import *
 
 
+
 # Create your models here. Database
 class Category(models.Model):
     """
@@ -100,13 +101,22 @@ class Cart(models.Model):
         for instance in self.items.filter(product=product):
             instance.delete()
 
+
+    def adjust_stock(self):
+        """
+        Decrement stock based on cart quantities
+        """
+
+        for item in self.items.all():
+            item.product.quantity -= item.quantity
+            item.product.save()
+
     def remove_all(self):
         """
         Remove all the items from the cart.
         """
         for instance in self.items.all():
             instance.delete()
-
 
 class CartItem(models.Model):
 
@@ -127,6 +137,7 @@ class Invoice(models.Model):
     stripe_token = models.CharField(max_length=100)
     city = models.CharField(max_length=30)
     country = models.CharField(max_length=20)
+    province = models.CharField(max_length=30)
     postal_code = models.CharField(max_length=10)
     street_1 = models.CharField(max_length=50, verbose_name='Address 1')
     street_2 = models.CharField(max_length=50, blank=True, verbose_name='Address 2')
@@ -134,10 +145,30 @@ class Invoice(models.Model):
     name_last = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    tax = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     shipping = models.DecimalField(max_digits=10, decimal_places=2)
+    email = models.EmailField(max_length=50)
+    card_last4 = models.CharField(max_length=4, blank=True, null=True)
+    card_brand = models.CharField(max_length=50, blank=True, null=True)
+
+
 
     def __str__(self):
         return '%s %s' %(self.name_first, self.name_last)
+
+    def create_items(self, cart):
+        # save each cart item as a line item on the invoice
+        for item in cart.items.all():
+            line_item = LineItem()
+            line_item.invoice = self
+            line_item.product = item.product
+            line_item.name = item.product.name
+            line_item.description = item.product.description
+            line_item.price = item.product.price
+            line_item.sku = item.product.sku
+            line_item.quantity = item.quantity
+            line_item.save() #save in DB
 
 
 class LineItem(models.Model):
@@ -145,10 +176,15 @@ class LineItem(models.Model):
     invoice = models.ForeignKey('Invoice', related_name='line_items')
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
+    description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sku = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField()
+
+    def total(self):
+        return self.price * self.quantity
+
+
 
 
 

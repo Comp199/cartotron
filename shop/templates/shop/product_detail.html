@@ -6,6 +6,7 @@
 {% block content %}
 
     <div class="row margin-top20">
+
         <div class="col-md-3">
             <a class="img-thumbnail">
             {% thumbnail product.image "230x310" as im %}
@@ -22,7 +23,7 @@
 
             <div class="product-title">{{ product.name }}</div>
             <div class="product-desc">{{ product.description }}</div>
-            <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+{#            <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>#}
             <hr>
             <div class="product-price">$ {{ product.price }}</div>
 
@@ -42,9 +43,9 @@
                     <button type="submit" class="btn btn-success">
                         Add to cart
                     </button>
-
                 </form>
             </div>
+
             <div class="btn-group wishlist">
                 <button type="button" class="btn btn-danger">
                     Add to wishlist

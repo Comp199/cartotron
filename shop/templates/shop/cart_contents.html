@@ -122,9 +122,9 @@
                                 </a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success">
+                                <a href="/cart/checkout/" class="btn btn-success">
                                     Checkout <span class="glyphicon glyphicon-play"></span>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -136,6 +136,7 @@
 
 {% block scripts %}
 
+    {#Update cart actions using JQuery#}
     <script type="text/javascript">
         $(function () {
             $("#update-cart").on("click", function(e){
