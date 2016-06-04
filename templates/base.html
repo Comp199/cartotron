@@ -20,10 +20,13 @@ Includes the following blocks for overriding:
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "css/store.css" %}" rel="stylesheet" type="text/css">
 
+
 </head>
 <body>
 
-        {% include "navbar.html" %}
+
+    {% include "navbar.html" %}
+
 
     <div class="container">
         {% block content %}
@@ -35,7 +38,6 @@ Includes the following blocks for overriding:
 
     {% block scripts %}
     {% endblock scripts %}
-
 
 </body>
 </html>

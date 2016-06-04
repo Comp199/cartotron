@@ -142,3 +142,13 @@ def checkout_step_1(request):
     context = {'form': form}
 
     return render(request, 'shop/checkout_step_1.html', context)
+
+
+def popular_list(request):
+    """
+    Fetch 8 products with the lowest quantity, greater than 0, and display them on the popular page
+    """
+    products = Product.objects.filter(quantity__gte='1').order_by('quantity')[:8]
+    context = {'products': products}
+
+    return render(request, "shop/popular_list.html", context)

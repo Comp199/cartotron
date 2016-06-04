@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-{% block title %}Products{% endblock title %}
+{% block title %}Popular Products{% endblock title %}
 
 {% block content %}
 
-    <h3>Products {% if category %}- {{ category.name }} {% endif %}</h3>
+    <h3>Popular Products {% if category %}- {{ category.name }} {% endif %}</h3>
         <div class="row">
         {% for product in products %}
 

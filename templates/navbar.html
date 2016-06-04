@@ -1,4 +1,11 @@
-<nav class="navbar navbar-default navbar-store navbar-fixed-top">
+<nav class="navbar navbar-default navbar-store navbar-static-top">
+{# start banner #}
+    <div class="row">
+    <div class="banner banner-container">
+      <h1>Novelty Knickknacks</h1>
+    </div>
+  </div>
+{# end banner #}
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -29,7 +36,7 @@
           </ul>
         </li>
         <li><a href="{% url 'product_list' %}">Products</a></li>
-        <li><a href="{% url 'index' %}">Popular</a></li>
+        <li><a href="{% url 'popular_list' %}">Popular</a></li>
         <li><a href="{% url 'index' %}">About</a></li>
         <li><a href="{% url 'index' %}">Contact</a></li>
       </ul>

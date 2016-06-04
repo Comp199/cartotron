@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^products/(?P<product_id>\d+)/$', shop_views.product_detail, name="product_detail"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^popular/$', shop_views.popular_list, name="popular_list"),
 
 ]
 
