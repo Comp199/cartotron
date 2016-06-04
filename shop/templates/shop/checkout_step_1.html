@@ -9,6 +9,10 @@
     <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
 
+{#              Display payment errors in this div, or nothing if error free#}
+                <div class="alert alert-danger payment-errors" style="display: none;">
+
+                </div>
 
 
                 <form method="post" id="payment_form" action="." novalidate>
@@ -44,7 +48,6 @@
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                     </select>
-{#                                    <input class="form-control form-control-inline" size="2" id="id_expiration" required="required" type="text" placeholder="MM" data-stripe="exp_month">#}
                                     /
                                     <select class="form-control-inline form-control" id="id_expiration_year" required="required" type="text" placeholder="YY" data-stripe="exp_year">
                                         <option>16</option>
@@ -59,7 +62,6 @@
                                         <option>25</option>
                                         <option>26</option>
                                     </select>
-{#                                    <input class="form-control form-control-inline" size="2" id="id_expiration_year" required="required" type="text" placeholder="YY" data-stripe="exp_year">#}
                                 </div>
                             </div>
 
@@ -68,11 +70,9 @@
                             <div class="form-group">
                                 <label class="control-label" for="id_cvc">CVC</label>
                                 <div>
-                                <input class="form-control form-control-inline" size="3" id="id_cvc" required="required" type="text" data-stripe="cvc">
-
+                                    <input class="form-control form-control-inline" size="3" id="id_cvc" required="required" type="text" data-stripe="cvc">
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -84,7 +84,6 @@
                             {% bootstrap_field form.first_name %}
                             {% bootstrap_field form.address_1 %}
                             {% bootstrap_field form.address_2 %}
-
                             {% bootstrap_field form.phone_number %}
                             {% bootstrap_field form.email %}
 
@@ -93,6 +92,7 @@
                         <div class="col-md-6">
                             {% bootstrap_field form.last_name %}
                             {% bootstrap_field form.city %}
+                            {% bootstrap_field form.country %}
                             {% bootstrap_field form.province %}
                             {% bootstrap_field form.postal_code %}
 
@@ -100,13 +100,16 @@
                     </div>
 
                     <div class="form-group">
+
+                        <div class="pull-left">
+                            <button type="submit" class="btn btn-default" name="action" value="back">Back</button>
+                        </div>
+
                         <div class="pull-right">
-{#                            <button type="submit" class="btn btn-success">Submit</button>#}
-{#                            <button type="button" class="btn btn-default">Continue Shopping</button>#}
 
                            <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                            </a>
+                           </a>
 
                             <button type="submit" class="btn btn-success">
                                 Checkout <span class="glyphicon glyphicon-play"></span>
@@ -119,6 +122,7 @@
                 </form>
             </div>
         </div>
+
         <div class="col-sm-12 col-md-4 col-lg-4">
         </div>
 
@@ -127,49 +131,60 @@
 
 {% block scripts %}
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-
     <script type="text/javascript">
 
         Stripe.setPublishableKey('{{ STRIPE_PUBLISH_KEY }}');
 
         function stripeResponseHandler(status, response) {
-          // Grab the form:
-          var $form = $('#payment_form');
+            // Grab the form:
+            var $form = $('#payment_form');
+            var $paymentErrors = $(".payment-errors");
 
-          if (response.error) { // Problem!
+            if (response.error) { // Problem!
 
-            // Show the errors on the form:
-              console.log(response.error.message);
-{#            $form.find('.payment-errors').text(response.error.message);#}
-            $form.find('.submit').prop('disabled', false); // Re-enable submission
+                // Show the errors on the form:
+                console.log(response.error.message);
+                $paymentErrors.text(response.error.message);
+                $paymentErrors.show();
+                $form.find('.submit').prop('disabled', false); // Re-enable submission
 
-          } else { // Token was created!
+            } else { // Token was created!
+                $paymentErrors.hide();
+                // Get the token ID:
+                var token = response.id;
 
-            // Get the token ID:
-            var token = response.id;
+                // Insert the token ID into the form so it gets submitted to the server:
+                $form.append($('<input type="hidden" name="stripe_token">').val(token));
 
-            // Insert the token ID into the form so it gets submitted to the server:
-            $form.append($('<input type="hidden" name="stripeToken">').val(token));
-
-            // Submit the form:
-            $form.get(0).submit();
-          }
-        };
+                // Submit the form:
+                $form.get(0).submit();
+            }
+        }
+        ;
 
 
-        $(function() {
-          var $form = $('#payment_form');
-          $form.submit(function(event) {
-            // Disable the submit button to prevent repeated clicks:
-            $form.find('.submit').prop('disabled', true);
+        $(function () {
+            var $form = $('#payment_form');
 
-            // Request a token from Stripe:
-            Stripe.card.createToken($form, stripeResponseHandler);
 
-            // Prevent the form from being submitted:
-            return false;
-          });
+            $form.on("submit", function (event) {
+
+                var btn = $(this).find("button[type=submit]:focus" );
+
+                // catch the back button and don't process stripe information
+                if(btn.val() == 'back'){
+                    return true;
+                }
+
+                // Disable the submit button to prevent repeated clicks:
+                $form.find('.submit').prop('disabled', true);
+
+                // Request a token from Stripe:
+                Stripe.card.createToken($form, stripeResponseHandler);
+
+                // Prevent the form from being submitted:
+                return false;
+            });
         });
     </script>
 {% endblock scripts %}
