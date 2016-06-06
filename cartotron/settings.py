@@ -103,6 +103,9 @@ DATABASES = {
 #     }
 # }
 
+STRIPE_PUBLISH_KEY = 'pk_test_bz5u6SxpNFkuLG7316AZCDIw'
+STRIPE_SECRET_KEY = 'sk_test_rYvENk4VhloQpXzsLzOU1JIH'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -116,6 +119,20 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
+
+TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
+
+TEMPLATED_EMAIL_DJANGO_SUBJECTS = {
+    'Thank you': 'Thanks for shopping with us!',
+}
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+
+MAILGUN_ACCESS_KEY = ''
+
+MAILGUN_SERVER_NAME = ''
 
 
 # Static files (CSS, JavaScript, Images)

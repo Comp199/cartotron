@@ -18,3 +18,5 @@ sqlparse==0.1.19
 static3==0.6.1
 stripe==1.35.0
 whitenoise==3.0
+django-templated-email==0.4.9
+django-mailgun==0.9.1

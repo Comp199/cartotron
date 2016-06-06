@@ -10,6 +10,8 @@ from shop.models import Category, Product, CartItem, Invoice, Decimal
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
+from templated_email import send_templated_mail
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -277,6 +279,8 @@ def invoice(request, invoice_id):
         'invoice': invoice,
     }
 
+    send_invoice(request, invoice_id, invoice.email)
+
     return render(request, 'shop/invoice.html', context)
 
 def cart_remove_all(request):
@@ -285,3 +289,16 @@ def cart_remove_all(request):
         request.cart.remove_all()
 
     return HttpResponseRedirect("/cart/")
+
+
+def send_invoice(request, invoice_id, user_email):
+
+    send_templated_mail(
+        template_name='invoice',
+        from_email='example@ex.ca',
+        recipient_list=[user_email],
+        context={
+            'invoice': invoice,
+        },
+    )
+
