@@ -128,7 +128,7 @@ TEMPLATED_EMAIL_DJANGO_SUBJECTS = {
     'Thank you': 'Thanks for shopping with us!',
 }
 
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 MAILGUN_ACCESS_KEY = ''
 
@@ -141,3 +141,4 @@ MAILGUN_SERVER_NAME = ''
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
