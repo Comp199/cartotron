@@ -295,7 +295,7 @@ def invoice(request, invoice_id):
         'invoice': invoice,
     }
 
-    send_invoice(request, invoice_id, invoice.email)
+    send_invoice(request, invoice_id)
 
     return render(request, 'shop/invoice.html', context)
 
@@ -307,16 +307,10 @@ def cart_remove_all(request):
     return HttpResponseRedirect("/cart/")
 
 
-def send_invoice(request, invoice_id, user_email):
+def send_invoice(request, invoice_id):
 
     invoice = get_object_or_404(Invoice, id=invoice_id)
 
-    send_templated_mail(
-        template_name='invoice',
-        from_email='example@ex.ca',
-        recipient_list=[user_email],
-        context={
-            'invoice': invoice,
-        },
-    )
+    invoice.send_email()
+
 
