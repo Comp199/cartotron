@@ -293,6 +293,8 @@ def cart_remove_all(request):
 
 def send_invoice(request, invoice_id, user_email):
 
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+
     send_templated_mail(
         template_name='invoice',
         from_email='example@ex.ca',
