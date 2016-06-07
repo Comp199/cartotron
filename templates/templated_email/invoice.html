@@ -1,6 +1,8 @@
 
 {% load thumbnail %}
 
+{% block subject %}Invoice for Order #{{ invoice.id }}{% endblock subject %}
+
 {% block html %}
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
