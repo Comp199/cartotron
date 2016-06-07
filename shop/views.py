@@ -10,6 +10,8 @@ from shop.models import Category, Product, CartItem, Invoice, Decimal
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
+from django.contrib import messages
+
 from templated_email import send_templated_mail
 
 
@@ -78,6 +80,7 @@ def cart_add(request, product_id):
 
         product = Product.objects.get(id=product_id)
         request.cart.add_item(product)
+        messages.success(request, "Successfully added item to cart.")
 
     return HttpResponseRedirect("/cart/")
 
@@ -88,6 +91,7 @@ def cart_remove(request, product_id):
 
         product = Product.objects.get(id=product_id)
         request.cart.remove_item(product)
+        messages.info(request, "Removed item from cart.")
 
     return HttpResponseRedirect("/cart/")
 
@@ -120,29 +124,41 @@ def search(request):
 def cart_update(request):
 
     if request.method == "POST":
+        action = request.POST.get("action")
 
-        for item, quantity in request.POST.items():
+        if action == "update":
 
-            if item.startswith("item-"):
-                quantity = int(quantity)
-                item_id = int(item.split("-")[1])
+            for item, quantity in request.POST.items():
 
-                if quantity <= 0:
-                    request.cart.items.filter(id=item_id).delete()
+                if item.startswith("item-"):
+                    quantity = int(quantity)
+                    item_id = int(item.split("-")[1])
 
-                else:
+                    if quantity <= 0:
+                        request.cart.items.filter(id=item_id).delete()
 
-                    try:
-                        cart_item = request.cart.items.get(id=item_id)
-                        cart_item.quantity = quantity
-                        cart_item.save()
-                    except CartItem.DoesNotExist:
-                        pass
+                    else:
+
+                        try:
+                            cart_item = request.cart.items.get(id=item_id)
+                            cart_item.quantity = quantity
+                            cart_item.save()
+                        except CartItem.DoesNotExist:
+                            pass
+            messages.success(request, "Cart quantities updated.")
+
+        elif action == "clear":
+            request.cart.remove_all()
+            messages.info(request, "Cart emptied.")
 
     return HttpResponseRedirect("/cart/")
 
 
 def checkout(request):
+
+    # if cart is empty redirect back to cart page- don't go to checkout
+    if request.cart.is_empty():
+        return HttpResponseRedirect('/cart/')
 
     checkout_step = request.session.get('checkout_step', 1)
 
@@ -287,7 +303,7 @@ def cart_remove_all(request):
 
     if request.method == "POST":
         request.cart.remove_all()
-
+        messages.info(request, "Cart emptied.")
     return HttpResponseRedirect("/cart/")
 
 
