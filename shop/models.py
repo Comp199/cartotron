@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce import models as tinymce_models
 from decimal import *
+from templated_email import send_templated_mail
 
 
 
@@ -169,6 +170,16 @@ class Invoice(models.Model):
             line_item.sku = item.product.sku
             line_item.quantity = item.quantity
             line_item.save() #save in DB
+
+    def send_email(self):
+        send_templated_mail(
+            template_name='invoice',
+            from_email='example@ex.ca',
+            recipient_list=[self.email],
+            context={
+                'invoice': self,
+            },
+        )
 
 
 class LineItem(models.Model):
