@@ -101,7 +101,6 @@ class Cart(models.Model):
         for instance in self.items.filter(product=product):
             instance.delete()
 
-
     def adjust_stock(self):
         """
         Decrement stock based on cart quantities
@@ -117,6 +116,13 @@ class Cart(models.Model):
         """
         for instance in self.items.all():
             instance.delete()
+
+    def is_empty(self):
+        """
+        Determines if cart is empty
+        """
+        return not self.items.all().exists()
+
 
 class CartItem(models.Model):
 
