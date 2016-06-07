@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from tinymce import models as tinymce_models
 from decimal import *
@@ -180,7 +181,7 @@ class Invoice(models.Model):
     def send_email(self):
         send_templated_mail(
             template_name='invoice',
-            from_email='example@ex.ca',
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[self.email],
             context={
                 'invoice': self,
