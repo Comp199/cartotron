@@ -255,17 +255,14 @@ def checkout(request):
             return HttpResponseRedirect('/invoices/%s/' % invoice.id)
 
         else:
-
-
             # use some dictionary unpacking magic to turn our invoice_dict back into an Invoice
-
-
 
             context = {
                 'invoice': invoice,
                 'token': request.session['token']
             }
             return render(request, 'shop/checkout_step_2.html', context)
+
 
 def invoice(request, invoice_id):
 
@@ -274,8 +271,7 @@ def invoice(request, invoice_id):
         'invoice': invoice,
     }
 
-<<<<<<< HEAD
-    return render(request, 'shop/checkout_step_1.html', context)
+    return render(request, 'shop/invoice.html', context)
 
 
 def popular_list(request):
@@ -286,6 +282,3 @@ def popular_list(request):
     context = {'products': products}
 
     return render(request, "shop/popular_list.html", context)
-=======
-    return render(request, 'shop/invoice.html', context)
->>>>>>> 856212ec5c8ed8808a4fbb3baaaebda05d408f37

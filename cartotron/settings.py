@@ -124,3 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
+STRIPE_PUBLISH_KEY = 'pk_test_bz5u6SxpNFkuLG7316AZCDIw'
+STRIPE_SECRET_KEY = 'sk_test_rYvENk4VhloQpXzsLzOU1JIH'
