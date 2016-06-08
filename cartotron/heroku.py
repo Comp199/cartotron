@@ -22,3 +22,12 @@ AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET']
 
 STRIPE_PUBLISH_KEY = os.environ['STRIPE_PUBLISH_KEY']
 STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+
+EMAIL_PORT = os.environ['MAILGUN_SMTP_PORT']
+EMAIL_HOST = os.environ['MAILGUN_SMTP_SERVER']
+EMAIL_HOST_USER = os.environ['MAILGUN_SMTP_LOGIN']
+EMAIL_HOST_PASSWORD = os.environ['MAILGUN_SMTP_PASSWORD']
+
+DEFAULT_FROM_EMAIL = 'postmaster@app3c3376c01614489db2e6bc221945e977.mailgun.org'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

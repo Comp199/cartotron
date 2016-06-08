@@ -10,6 +10,10 @@ from shop.models import Category, Product, CartItem, Invoice, Decimal
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
+from django.contrib import messages
+
+from templated_email import send_templated_mail
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -76,6 +80,7 @@ def cart_add(request, product_id):
 
         product = Product.objects.get(id=product_id)
         request.cart.add_item(product)
+        messages.success(request, "Successfully added item to cart.")
 
     return HttpResponseRedirect("/cart/")
 
@@ -86,6 +91,7 @@ def cart_remove(request, product_id):
 
         product = Product.objects.get(id=product_id)
         request.cart.remove_item(product)
+        messages.info(request, "Removed item from cart.")
 
     return HttpResponseRedirect("/cart/")
 
@@ -101,43 +107,58 @@ def search(request):
             if search_query in product.name:
                 products.append(product)
 
-        category_query = list(Product.objects.all())
+        category_query = list(Category.objects.all())
         categories = list()
 
         for category in category_query:
             if search_query in category.name:
                 categories.append(category)
 
-        context = {'products': products, 'categories': categories}
+        context = {
+            'products': products,
+            'categories': categories,
+        }
         return render(request, "shop/search_results.html", context)
 
 
 def cart_update(request):
 
     if request.method == "POST":
+        action = request.POST.get("action")
 
-        for item, quantity in request.POST.items():
+        if action == "update":
 
-            if item.startswith("item-"):
-                quantity = int(quantity)
-                item_id = int(item.split("-")[1])
+            for item, quantity in request.POST.items():
 
-                if quantity <= 0:
-                    request.cart.items.filter(id=item_id).delete()
+                if item.startswith("item-"):
+                    quantity = int(quantity)
+                    item_id = int(item.split("-")[1])
 
-                else:
+                    if quantity <= 0:
+                        request.cart.items.filter(id=item_id).delete()
 
-                    try:
-                        cart_item = request.cart.items.get(id=item_id)
-                        cart_item.quantity = quantity
-                        cart_item.save()
-                    except CartItem.DoesNotExist:
-                        pass
+                    else:
+
+                        try:
+                            cart_item = request.cart.items.get(id=item_id)
+                            cart_item.quantity = quantity
+                            cart_item.save()
+                        except CartItem.DoesNotExist:
+                            pass
+            messages.success(request, "Cart quantities updated.")
+
+        elif action == "clear":
+            request.cart.remove_all()
+            messages.info(request, "Cart emptied.")
 
     return HttpResponseRedirect("/cart/")
 
 
 def checkout(request):
+
+    # if cart is empty redirect back to cart page- don't go to checkout
+    if request.cart.is_empty():
+        return HttpResponseRedirect('/cart/')
 
     checkout_step = request.session.get('checkout_step', 1)
 
@@ -255,7 +276,11 @@ def checkout(request):
             return HttpResponseRedirect('/invoices/%s/' % invoice.id)
 
         else:
+
+
             # use some dictionary unpacking magic to turn our invoice_dict back into an Invoice
+
+
 
             context = {
                 'invoice': invoice,
@@ -271,7 +296,24 @@ def invoice(request, invoice_id):
         'invoice': invoice,
     }
 
+    send_invoice(request, invoice_id)
+
     return render(request, 'shop/invoice.html', context)
+
+
+def cart_remove_all(request):
+
+    if request.method == "POST":
+        request.cart.remove_all()
+        messages.info(request, "Cart emptied.")
+    return HttpResponseRedirect("/cart/")
+
+
+def send_invoice(request, invoice_id):
+
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+
+    invoice.send_email()
 
 
 def popular_list(request):
@@ -282,3 +324,4 @@ def popular_list(request):
     context = {'products': products}
 
     return render(request, "shop/popular_list.html", context)
+

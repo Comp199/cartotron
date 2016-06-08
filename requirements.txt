@@ -18,3 +18,5 @@ sqlparse==0.1.19
 static3==0.6.1
 stripe==1.35.0
 whitenoise==3.0
+-e git://github.com/BradWhittington/django-templated-email.git@959c40e793bab96454245585ab090df873a619b5#egg=django-templated-email
+django-mailgun==0.9.1

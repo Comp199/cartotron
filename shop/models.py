@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.db import models
 from tinymce import models as tinymce_models
 from decimal import *
+from templated_email import send_templated_mail
 
 
 
@@ -110,6 +112,20 @@ class Cart(models.Model):
             item.product.quantity -= item.quantity
             item.product.save()
 
+    def remove_all(self):
+        """
+        Remove all the items from the cart.
+        """
+        for instance in self.items.all():
+            instance.delete()
+
+    def is_empty(self):
+        """
+        Determines if cart is empty
+        """
+        return not self.items.all().exists()
+
+
 class CartItem(models.Model):
 
     product = models.ForeignKey('Product')
@@ -161,6 +177,16 @@ class Invoice(models.Model):
             line_item.sku = item.product.sku
             line_item.quantity = item.quantity
             line_item.save() #save in DB
+
+    def send_email(self):
+        send_templated_mail(
+            template_name='invoice',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[self.email],
+            context={
+                'invoice': self,
+            },
+        )
 
 
 class LineItem(models.Model):
