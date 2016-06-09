@@ -34,7 +34,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^popular/$', shop_views.popular_list, name="popular_list"),
-
+    url(r'^contact/$', shop_views.contact, name="contact"),
+    url(r'^about/$', shop_views.about, name="about"),
 ]
 
 

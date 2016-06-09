@@ -325,3 +325,10 @@ def popular_list(request):
 
     return render(request, "shop/popular_list.html", context)
 
+
+def contact(request):
+    return render(request, "shop/contact.html")
+
+
+def about(request):
+    return render(request, "shop/about.html")
