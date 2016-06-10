@@ -73,6 +73,7 @@ footer {
   height: 80px;
   border: 1px solid transparent;
   border-radius: 0;
+  background: url('../css/noveltyNav1.png');
 }
 
 .banner-container {
