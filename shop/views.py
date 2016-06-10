@@ -312,8 +312,9 @@ def cart_remove_all(request):
 def send_invoice(request, invoice_id):
 
     invoice = get_object_or_404(Invoice, id=invoice_id)
-
     invoice.send_email()
+
+    return HttpResponseRedirect("/invoices/%s/" % invoice_id)
 
 
 def popular_list(request):
