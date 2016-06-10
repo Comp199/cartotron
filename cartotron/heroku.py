@@ -27,7 +27,7 @@ EMAIL_PORT = os.environ['MAILGUN_SMTP_PORT']
 EMAIL_HOST = os.environ['MAILGUN_SMTP_SERVER']
 EMAIL_HOST_USER = os.environ['MAILGUN_SMTP_LOGIN']
 EMAIL_HOST_PASSWORD = os.environ['MAILGUN_SMTP_PASSWORD']
-
+EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'postmaster@app3c3376c01614489db2e6bc221945e977.mailgun.org'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
