@@ -1,91 +1,99 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-{% block title %}Product - {{ product.name }}{% endblock title %}
+{% block title %}Products{% endblock title %}
 
 {% block content %}
 
-    <div class="row margin-top20">
 
-        <div class="row">
-            <form method="get" action="{% url "search" %}" id="custom-search-input">
-                <input id="search_box" type="search" name="q">
-                <button id="search_submit" type="submit" class="btn btn-success">Search</button>
-            </form>
-        </div>
-
-
-        <div class="col-md-3">
-            <a class="img-thumbnail">
-            {% thumbnail product.image "230x310" as im %}
-                <img id="" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="">
-            {% endthumbnail %}
-            </a>
-        </div>
-
-
-        <div class="col-md-7">
-            <div class="product-title">{{ product.name }}</div>
-            <div class="product-desc">{{ product.description }}</div>
-            <hr>
-            <div class="product-price">$ {{ product.price }}</div>
-
-            <div class="product-stock">
-                {% if product.quantity == 0 %}
-                    <div class="product-empty"> Sold Out </div>
-                {% elif product.quantity <= 10 %}
-                    <div class="product-empty">Only {{ product.quantity }} Left</div>
-                {% else %}In Stock{% endif %}
+{#        Search bar#}
+       <form method="get" action="{% url "search" %}" >
+            <div id="custom-search-input">
+                <input id="search_box" type="search" name="q" placeholder="Search...">
+                <button id="search_submit" type="submit" class="btn btn-success" >
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
             </div>
+       </form>
 
-            <hr>
+    <div class="row">
 
-            <div class="btn-group cart">
-                {% if product.quantity != 0 %}
-                <form method="post" action="/cart/add/{{ product.id }}/">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success">
-                        Add to cart
-                    </button>
-                </form>
-                {% endif %}
-            </div>
+        <div class="col-md-4">
+
+            <h3>Products {% if category %}- {{ category.name }} {% endif %}</h3>
         </div>
+{#        <div class="col-md-4 col-md-offset-4">#}
+{#            <div id="custom-search-input">#}
+{#                <div class="input-group col-md-12">#}
+{##}
+{#                    <form method="get" action="{% url "search" %}" class="search-box">#}
+{#                        <input id="search_box" type="search" name="q" class="form-control input-sm" placeholder="Search" />#}
+{##}
+{#                        <span class="input-group-btn">#}
+{#                            <button class="btn btn-info btn-lg" type="submit">#}
+{#                                <i class="glyphicon glyphicon-search"></i>#}
+{#                            </button>#}
+{#                        </span>#}
+{##}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 
     <div class="row">
 
-        <div class="col-md-12 product-info">
-					<ul id="myTab" class="nav nav-tabs nav_tabs">
 
-						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
-						<li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
-						<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
+        {% for product in products %}
 
-					</ul>
-				<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade in active" id="service-one">
+            <div class="col-sm-6  col-md-3">
+                <div class="thumbnail">
+                    {% if product.image %}
 
-							<section class="container product-info">
-                                {{ product.long_description|safe }}
-							</section>
+                        <a href="/products/{{ product.id }}/">
+                        {% thumbnail product.image "260x220" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"260x220" }}">
+                        {% endthumbnail %}
+                        </a>
 
-						</div>
-					<div class="tab-pane fade" id="service-two">
+                    {% else %}
+                        <img src="http://placehold.it/260x220" alt="">
+                    {%  endif %}
 
-						<section class="container">
-                            {% lorem 3 p %}
+                    <div class="caption">
+                        <h4><a href="/products/{{ product.id }}/">{{ product.name }}</a></h4>
+{#                        <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a></h4>#}
+                        <p>{{ product.description }}</p>
+                    </div>
+                    {% if product.quantity != 0 %}
+                    <div class="margin-top10" style="padding: 6px;">
 
-						</section>
+                        <form method="post" action="/cart/add/{{ product.id }}/">
+                            {% csrf_token %}
+                            {# product price moved down here #}
+                            <h4 class="pull-right" >${{ product.price }}</h4>
 
-					</div>
-					<div class="tab-pane fade" id="service-three">
-                        {% lorem 3 p %}
-					</div>
-				</div>
-				<hr>
-			</div>
+                            <button type="submit" class="btn btn-success">
+                                Add to cart
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                <div class="margin-top10" style="padding: 6px;">
+                        <form method="post" action="/cart/add/{{ product.id }}/">
+                            {% csrf_token %}
+                            {# product price moved down here #}
+                            <h4 class="pull-right" >Sold Out</h4>
 
-	</div>
+                            <button type="submit" class="btn btn-success" disabled>
+                                Add to cart
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
 
 {% endblock content %}
