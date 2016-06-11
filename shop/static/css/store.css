@@ -345,7 +345,6 @@ Search bar
     border-left: solid 1px #ccc;
     text-align: center;
     vertical-align: middle;
-    line-height: 20px;
 }
 
 #custom-search-input button:hover{
