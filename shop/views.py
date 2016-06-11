@@ -23,7 +23,12 @@ def category_list(request):
     Fetch a all of the categories from the database in ascending order by name and render a list of categories.
     """
     categories = Category.objects.all().order_by("name")
-    context = {'categories': categories}
+    carousels = Carousel.objects.all().order_by("id")
+
+    context = {
+        'categories': categories,
+        'carousels': carousels,
+    }
 
     return render(request, "shop/category_list.html", context)
 

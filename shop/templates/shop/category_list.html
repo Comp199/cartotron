@@ -16,15 +16,11 @@
         </ol>
         {# Wrapper for slides#}
         <div class="carousel-inner" role="listbox">
-            {% for carousel in carousels %}
-                {% if forloop  == 1 %}
-                    <div class="item active">
-                {% else %}
-                    <div class="item">
-                {% endif %}
-                <img src="{{ carousel.image.url }}" alt="Image" width="700" height="385">
+            {% for carousel in carousels%}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <img src="{{carousel.image.url}}" alt="Carousel">
                 </div>
-            {% endfor %}
+            {%endfor%}
         </div>
         {#  Left and right controls #}
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -38,6 +34,7 @@
     </div>
 {# End of carousel #}
 </div>
+    <hr>
 
 
     <div class="row">

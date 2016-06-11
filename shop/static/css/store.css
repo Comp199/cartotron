@@ -98,9 +98,11 @@
  text-shadow: -2px 0 rgba(30, 30, 66, 0.96), 0 2px rgba(105, 160, 159, 0.84), 2px 0 rgba(30, 30, 66, 0.95), 0 -2px rgba(30, 30, 66, 0.94);
 }
 
-
-
-
+.carousel {
+    width: 1000px;
+    height: 563px;
+    margin: auto;
+}
 
 /*********************************************
         		Navbar
