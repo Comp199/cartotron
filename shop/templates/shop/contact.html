@@ -5,12 +5,82 @@
 
 {% block content %}
 
-    <h3>Contact Us</h3>
-    <p>
-        Have Questions? We've got answers!<br>
-        Phone: 1-555-Novelty<br>
-        Email: knickknacks@novelty.ca<br>
-    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Contact Us</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <iframe width="100%" height="200" frameborder="0" style="border:0" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10576.853182216582!2d-123.4164968!3d48.4908018!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd0f32bd4ffbf6ee4!2sCamosun+College+-+Interurban+Campus!5e0!3m2!1sen!2sca!4v1465628099866" ></iframe>
+            </div>
+
+        </div>
+
+	    <div class="row">
+            <div class="col-md-8">
+
+                <h3>Send a Message</h3>
+
+                <p>
+                    {% lorem  %}
+                </p>
+
+                <form method="get" action="." novalidate>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Email</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Message</label>
+                            <textarea name="message" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h3>More Information</h3>
+                <div class="margin-top10">
+                    Have Questions? We've got answers!<br>
+                </div>
+
+                <div class="margin-top10">
+                    <address>
+                        <strong>Novelty Knickknacks</strong><br>
+                        4461 Interurban Rd<br>
+                        Victoria BC<br>
+                        Canada<br>
+                        V9E 2C1<br>
+                        <abbr title="Phone"></abbr> 1-555-Novelty
+                    </address>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
 
 
 {% endblock content %}
