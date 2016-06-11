@@ -7,6 +7,14 @@
 
     <div class="row margin-top20">
 
+        <div class="row">
+            <form method="get" action="{% url "search" %}" id="custom-search-input">
+                <input id="search_box" type="search" name="q">
+                <button id="search_submit" type="submit" class="btn btn-success">Search</button>
+            </form>
+        </div>
+
+
         <div class="col-md-3">
             <a class="img-thumbnail">
             {% thumbnail product.image "230x310" as im %}
@@ -15,13 +23,9 @@
             </a>
         </div>
 
-        <div class="col-md-7">
-            <form method="get" action="{% url "search" %}" id="custom-search-input">
-                <input id="search_box" type="search" name="q">
-                <button id="search_submit" type="submit" class="btn btn-success">Search</button>
-            </form>
 
-            <div class="product-title"><h4><b>{{ product.name }}</b></h4></div>
+        <div class="col-md-7">
+            <div class="product-title">{{ product.name }}</div>
             <div class="product-desc">{{ product.description }}</div>
             <hr>
             <div class="product-price">$ {{ product.price }}</div>
