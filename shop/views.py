@@ -105,23 +105,23 @@ def search(request):
     if request.method == "GET":
 
         search_query = request.GET['q']
-        product_query = list(Product.objects.all())
-        products = list()
-
-        for product in product_query:
-            if search_query.upper() in product.name.upper():
-                products.append(product)
-
-        category_query = list(Category.objects.all())
-        categories = list()
-
-        for category in category_query:
-            if search_query.upper() in category.name.upper():
-                categories.append(category)
+        # product_query = list(Product.objects.all())
+        # products = list()
+        #
+        # for product in product_query:
+        #     if search_query.upper() in product.name.upper():
+        #         products.append(product)
+        #
+        # category_query = list(Category.objects.all())
+        # categories = list()
+        #
+        # for category in category_query:
+        #     if search_query.upper() in category.name.upper():
+        #         categories.append(category)
 
         context = {
-            'products': products,
-            'categories': categories,
+            'products': Product.objects.filter(name__icontains=search_query),
+            'categories': Category.objects.filter(name__icontains=search_query),
         }
         return render(request, "shop/search_results.html", context)
 
