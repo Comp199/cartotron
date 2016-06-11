@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 
 from shop.forms import CheckoutForm
 
-from shop.models import Category, Product, CartItem, Invoice, Decimal
+from shop.models import Category, Product, CartItem, Invoice, Decimal, Carousel
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
