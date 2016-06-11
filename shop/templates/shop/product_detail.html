@@ -21,9 +21,8 @@
                 <button id="search_submit" type="submit" class="btn btn-success">Search</button>
             </form>
 
-            <div class="product-title">{{ product.name }}</div>
+            <div class="product-title"><h4><b>{{ product.name }}</b></h4></div>
             <div class="product-desc">{{ product.description }}</div>
-{#            <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>#}
             <hr>
             <div class="product-price">$ {{ product.price }}</div>
 
@@ -47,12 +46,6 @@
                 </form>
                 {% endif %}
             </div>
-
-{#            <div class="btn-group wishlist">#}
-{#                <button type="button" class="btn btn-danger">#}
-{#                    Add to wishlist#}
-{#                </button>#}
-{#            </div>#}
         </div>
     </div>
 
