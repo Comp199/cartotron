@@ -206,12 +206,6 @@ footer {
 	color: #d9230f;
 }
 
-.search-box{
-	float: right;
-	margin: 0;
-	position: relative;
-}
-
 /*********************************************
 					VIEW
 *********************************************/
@@ -327,11 +321,12 @@ Search bar
 */
 
 #custom-search-input{
-    padding: 3px;
+    padding: 2px;
 	margin: 15px -2px;
     border: solid 1px #E4E4E4;
     border-radius: 6px;
     background-color: #fff;
+    float: right;
 }
 
 #custom-search-input input{
@@ -340,13 +335,18 @@ Search bar
 }
 
 #custom-search-input button{
-    margin: 2px 0 0 0;
-    background: none;
+    margin: 2px 0 2px 0;
+    background: rebeccapurple;
     box-shadow: none;
     border: 0;
-    color: #666666;
-    padding: 0 8px 0 10px;
+    color: #ffffff;
+    height: 20px;
+    width: 80px;
+    padding: 0 2px 0 2px;
     border-left: solid 1px #ccc;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
 }
 
 #custom-search-input button:hover{
@@ -357,6 +357,11 @@ Search bar
 
 #custom-search-input .glyphicon-search{
     font-size: 23px;
+}
+
+.search-box{
+	float: right;
+    margin: 0;
 }
 
 

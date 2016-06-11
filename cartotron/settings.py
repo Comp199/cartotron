@@ -122,7 +122,7 @@ TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBacke
 TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 
 TEMPLATED_EMAIL_DJANGO_SUBJECTS = {
-    'Thank you': 'Thanks for shopping with us!',
+    'invoice': 'Thanks for shopping with us!',
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
@@ -138,7 +138,4 @@ MAILGUN_SERVER_NAME = ''
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
-
-STRIPE_PUBLISH_KEY = 'pk_test_bz5u6SxpNFkuLG7316AZCDIw'
-STRIPE_SECRET_KEY = 'sk_test_rYvENk4VhloQpXzsLzOU1JIH'
 
