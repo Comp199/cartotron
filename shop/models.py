@@ -203,7 +203,14 @@ class LineItem(models.Model):
         return self.price * self.quantity
 
 
+class Carousel(models.Model):
 
+    name = models.CharField(max_length=25, default="carousel")
+    image = models.ImageField(upload_to='category/carousel/', null=True, blank=True)
+
+    # to string
+    def __str__(self):
+        return self.name
 
 
 

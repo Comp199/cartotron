@@ -6,36 +6,34 @@
 {% block content %}
 
     <div class="row margin-top20">
-
-        <div class="col-md-3">
-            <a class="img-thumbnail">
-            {% thumbnail product.image "230x310" as im %}
-                <img id="" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="">
-            {% endthumbnail %}
-            </a>
-        </div>
-
-        <div class="col-md-7">
-            <div class="row" >
-                 <form method="get" action="{% url "search" %}" id="custom-search-input">
-
+            <form method="get" action="{% url "search" %}">
+                <div id="custom-search-input">
                     <input id="search_box" type="search" name="q" placeholder="Search...">
                     <button id="search_submit" type="submit" class="btn btn-success">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
 
 
+        <div class="col-md-3">
+            <a class="img-thumbnail">
+                {% thumbnail product.image "230x310" as im %}
+                    <img id="" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="">
+                {% endthumbnail %}
+            </a>
+        </div>
+
+
+        <div class="col-md-7">
             <div class="product-title">{{ product.name }}</div>
             <div class="product-desc">{{ product.description }}</div>
-{#            <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>#}
             <hr>
             <div class="product-price">$ {{ product.price }}</div>
 
             <div class="product-stock">
                 {% if product.quantity == 0 %}
-                    <div class="product-empty"> Sold Out </div>
+                    <div class="product-empty"> Sold Out</div>
                 {% elif product.quantity <= 10 %}
                     <div class="product-empty">Only {{ product.quantity }} Left</div>
                 {% else %}In Stock{% endif %}
@@ -45,56 +43,50 @@
 
             <div class="btn-group cart">
                 {% if product.quantity != 0 %}
-                <form method="post" action="/cart/add/{{ product.id }}/">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success">
-                        Add to cart
-                    </button>
-                </form>
+                    <form method="post" action="/cart/add/{{ product.id }}/">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">
+                            Add to cart
+                        </button>
+                    </form>
                 {% endif %}
             </div>
-
-{#            <div class="btn-group wishlist">#}
-{#                <button type="button" class="btn btn-danger">#}
-{#                    Add to wishlist#}
-{#                </button>#}
-{#            </div>#}
         </div>
     </div>
 
     <div class="row">
 
         <div class="col-md-12 product-info">
-					<ul id="myTab" class="nav nav-tabs nav_tabs">
+            <ul id="myTab" class="nav nav-tabs nav_tabs">
 
-						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
-						<li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
-						<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
+                <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+                <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+                <li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
 
-					</ul>
-				<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade in active" id="service-one">
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="service-one">
 
-							<section class="container product-info">
-                                {{ product.long_description|safe }}
-							</section>
+                    <section class="container product-info">
+                        {{ product.long_description|safe }}
+                    </section>
 
-						</div>
-					<div class="tab-pane fade" id="service-two">
+                </div>
+                <div class="tab-pane fade" id="service-two">
 
-						<section class="container">
-                            {% lorem 3 p %}
-
-						</section>
-
-					</div>
-					<div class="tab-pane fade" id="service-three">
+                    <section class="container">
                         {% lorem 3 p %}
-					</div>
-				</div>
-				<hr>
-			</div>
 
-	</div>
+                    </section>
+
+                </div>
+                <div class="tab-pane fade" id="service-three">
+                    {% lorem 3 p %}
+                </div>
+            </div>
+            <hr>
+        </div>
+
+    </div>
 
 {% endblock content %}
