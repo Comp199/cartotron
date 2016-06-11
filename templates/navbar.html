@@ -25,6 +25,9 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-menu-store" role="menu">
 
+            <li><a href="{% url 'popular_list' %}">Popular Products</a></li>
+            <li role="separator" class="divider"><a href="{% url 'popular_list' %}">Popular Products</a></li>
+
               {# Loop through the list of categories and generate the dropdown links #}
               {% for category in categories %}
 
@@ -35,7 +38,6 @@
 
               {% endfor %}
 
-            <li><a href="{% url 'popular_list' %}">Popular Products</a></li>
           </ul>
         </li>
         <li><a href="{% url 'product_list' %}">Products</a></li>

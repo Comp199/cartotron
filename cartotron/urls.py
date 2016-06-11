@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^cart/checkout/$', shop_views.checkout, name="cart_checkout"),
     url(r'^search/$', shop_views.search, name="search"),
     url(r'^invoices/(?P<invoice_id>\d+)/$', shop_views.invoice, name="invoice"),
+    url(r'^invoices/(?P<invoice_id>\d+)/resend/$', shop_views.send_invoice, name="invoice_resend"),
     url(r'^categories/(?P<category_id>\d+)/$', shop_views.category_detail, name="category_detail"),
     url(r'^products/$', shop_views.product_list, name="product_list"),
     url(r'^products/(?P<product_id>\d+)/$', shop_views.product_detail, name="product_detail"),
