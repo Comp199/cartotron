@@ -78,6 +78,13 @@
                     {% endif %}
                 </div>
             </div>
+
+
+          {# only display 4 products in each row. #}
+            {% if forloop.counter|divisibleby:4 %}
+              </div>
+              <div class="row">
+          {% endif %}
         {% endfor %}
     </div>
 
