@@ -17,8 +17,10 @@
 
         <div class="col-md-7">
             <form method="get" action="{% url "search" %}" id="custom-search-input">
-                <input id="search_box" type="search" name="q">
-                <button id="search_submit" type="submit" class="btn btn-success">Search</button>
+                <input id="search_box" type="search" name="q" placeholder="Search...">
+                <button id="search_submit" type="submit" class="btn btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
             </form>
 
             <div class="product-title">{{ product.name }}</div>
