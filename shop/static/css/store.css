@@ -326,59 +326,6 @@
 }
 
 
-
-
-/*
-Search bar
-*/
-
-#custom-search-input{
-    padding: 3px;
-	margin: 15px -2px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
-    background-color: #fff;
-    float: right;
-    width: 100%;
-}
-
-#custom-search-input input{
-    border: 0;
-    box-shadow: none;
-    height: 30px;
-    width: 90%;
-}
-
-#custom-search-input button{
-    margin: 2px 0 0 0;
-    background: none;
-    box-shadow: none;
-    border: 0;
-    color: #666666;
-    padding: 0 6px 0 8px;
-    border-left: solid 1px #ccc;
-    text-align: center;
-    vertical-align: middle;
-    float: right;
-    width: 10%;
-}
-
-#custom-search-input button:hover{
-    border: 0;
-    box-shadow: none;
-    border-left: solid 1px #ccc;
-}
-
-#custom-search-input .glyphicon-search{
-    font-size: 23px;
-}
-
-.search-box{
-	float: right;
-    margin: 0;
-}
-
-
 /** invoice css */
 
 .invoice-title h2, .invoice-title h3 {
