@@ -61,9 +61,12 @@
     color: #333;
 }
 
-footer {
-    margin: 50px 0;
-}
+/*footer > .navbar{*/
+    /*margin: 0px;*/
+    /*-webkit-border-radius: 0px;*/
+    /*-moz-border-radius: 0px;*/
+    /*border-radius: 0px;*/
+/*}*/
 
 .banner {
   display: block;
@@ -73,7 +76,11 @@ footer {
   height: 80px;
   border: 1px solid transparent;
   border-radius: 0;
-  background: url('../css/noveltyNav1.png');
+  /*background: url('../css/noveltyNav1.png');*/
+}
+
+.banner-img{
+    background: url('../css/noveltyNav1.png');
 }
 
 .banner-container {
@@ -87,8 +94,8 @@ footer {
  font-family: "Lucida Handwriting", cursive;
  font-weight: bold;
  font-size: 3em;
- color: #7030a0;
- text-shadow: -2px 0 #000000, 0 2px #000000, 2px 0 #000000, 0 -2px #000000;
+ color: rgba(255, 255, 255, 0.98);
+ text-shadow: -2px 0 rgba(30, 30, 66, 0.96), 0 2px rgba(105, 160, 159, 0.84), 2px 0 rgba(30, 30, 66, 0.95), 0 -2px rgba(30, 30, 66, 0.94);
 }
 
 
@@ -100,8 +107,8 @@ footer {
 *********************************************/
 /* Navbar colour */
 .navbar-store {
-  background-color: #7030a0;
-  border-color: #7030a0;
+  background-color: #1e1e42;
+  border-color: #323275;
   border-bottom: #ffffff;
   margin: 0;
 }
@@ -381,4 +388,40 @@ Search bar
 
 .table > tbody > tr > .thick-line {
     border-top: 2px solid;
+}
+
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #1e1e42;
+}
+
+body > .container {
+  padding: 0px 15px 0;
+}
+.container .text-footer {
+  margin: 20px 0;
+    color: #ffffff;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
 }
