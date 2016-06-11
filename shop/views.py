@@ -104,14 +104,14 @@ def search(request):
         products = list()
 
         for product in product_query:
-            if search_query in product.name:
+            if search_query.upper() in product.name.upper():
                 products.append(product)
 
         category_query = list(Category.objects.all())
         categories = list()
 
         for category in category_query:
-            if search_query in category.name:
+            if search_query.upper() in category.name.upper():
                 categories.append(category)
 
         context = {
