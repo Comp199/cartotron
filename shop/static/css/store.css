@@ -214,6 +214,10 @@
 	color: #d9230f;
 }
 
+#product-list-empty{
+    color: #d9230f;
+}
+
 /*********************************************
 					VIEW
 *********************************************/
@@ -335,12 +339,14 @@ Search bar
     border-radius: 6px;
     background-color: #fff;
     float: right;
+    width: 100%;
 }
 
 #custom-search-input input{
     border: 0;
     box-shadow: none;
     height: 30px;
+    width: 90%;
 }
 
 #custom-search-input button{
@@ -353,7 +359,8 @@ Search bar
     border-left: solid 1px #ccc;
     text-align: center;
     vertical-align: middle;
-    line-height: 20px;
+    float: right;
+    width: 10%;
 }
 
 #custom-search-input button:hover{

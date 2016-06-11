@@ -8,6 +8,10 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
+class CarouselAdmin(admin.ModelAdmin):
+    pass
+
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price',)
     search_fields = ('name',)
@@ -30,9 +34,6 @@ class LineItemInline(admin.TabularInline):
 class InvoiceAdmin(admin.ModelAdmin):
     inlines = (LineItemInline, )
 
-
-class CarouselAdmin(admin.ModelAdmin):
-    pass
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
