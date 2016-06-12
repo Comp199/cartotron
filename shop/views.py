@@ -1,12 +1,14 @@
 import stripe
 from django.conf import settings
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import transaction
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from shop.forms import CheckoutForm
 
-from shop.models import Category, Product, CartItem, Invoice, Decimal
+from shop.models import Category, Product, CartItem, Invoice, Decimal, Carousel
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
@@ -18,12 +20,33 @@ from templated_email import send_templated_mail
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+def paginate_list(request, object_list):
+    paginator = Paginator(object_list, 12, orphans=2)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        object_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        object_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        object_list = paginator.page(paginator.num_pages)
+
+    return object_list
+
+
 def category_list(request):
     """
     Fetch a all of the categories from the database in ascending order by name and render a list of categories.
     """
     categories = Category.objects.all().order_by("name")
-    context = {'categories': categories}
+    carousels = Carousel.objects.all().order_by("id")
+
+    context = {
+        'categories': categories,
+        'carousels': carousels,
+    }
 
     return render(request, "shop/category_list.html", context)
 
@@ -35,6 +58,7 @@ def category_detail(request, category_id):
     """
     category = Category.objects.get(id=category_id)
     products = Product.objects.filter(categories=category).order_by("name")
+    products = paginate_list(request, products)
 
     context = {
         'category': category,
@@ -49,7 +73,12 @@ def product_list(request):
     Fetch all of the products from the database and render them in a list
     """
     products = Product.objects.all().order_by("name")
-    context = {'products': products}
+
+    products = paginate_list(request, products)
+
+    context = {
+        'products': products,
+    }
 
     return render(request, "shop/product_list.html", context)
 
@@ -115,11 +144,12 @@ def search(request):
         #     if search_query.upper() in category.name.upper():
         #         categories.append(category)
 
+        products = paginate_list(request, Product.objects.filter(name__icontains=search_query))
+
         context = {
-            'products': Product.objects.filter(name__icontains=search_query),
-            'categories': Category.objects.filter(name__icontains=search_query),
+            'products': products,
         }
-        return render(request, "shop/search_results.html", context)
+        return render(request, "shop/product_list.html", context)
 
 
 def cart_update(request):
@@ -171,6 +201,13 @@ def checkout(request):
 
                 if 'checkout_step' in request.session:
                     del request.session['checkout_step']
+
+                if 'token' in request.session:
+                    del request.session['token']
+
+                if 'invoice' in request.session:
+                    del request.session['invoice']
+
                 return HttpResponseRedirect('/cart/')
 
             if checkout_step > 1:
@@ -244,45 +281,41 @@ def checkout(request):
         # handle confirm page submitted
         if request.method == 'POST':
 
-            # set the calculated fields and save
-            invoice.shipping = Decimal("10.00")
-            invoice.tax = request.cart.tax()
-            invoice.subtotal = request.cart.subtotal()
-            invoice.total = request.cart.total() + invoice.shipping
-            invoice.save()
+            with transaction.atomic():
+                # set the calculated fields and save
+                invoice.shipping = Decimal("10.00")
+                invoice.tax = request.cart.tax()
+                invoice.subtotal = request.cart.subtotal()
+                invoice.total = request.cart.total() + invoice.shipping
+                invoice.save()
 
-            invoice.create_items(cart=request.cart)
+                invoice.create_items(cart=request.cart)
 
-            request.cart.adjust_stock()
+                request.cart.adjust_stock()
 
-            total_cents = int(invoice.total*100)
-            stripe.Charge.create(
-                amount=total_cents,
-                currency='cad',
-                source=invoice.stripe_token,
-                description='Test Charge from checkout'
-            )
+                total_cents = int(invoice.total*100)
+                stripe.Charge.create(
+                    amount=total_cents,
+                    currency='cad',
+                    source=invoice.stripe_token,
+                    description='Test Charge from checkout'
+                )
 
-            del request.session['checkout_step']
-            del request.session['invoice']
-            del request.session['token']
-            request.cart.delete()
+                del request.session['checkout_step']
+                del request.session['invoice']
+                del request.session['token']
+                request.cart.delete()
 
-            # create invoice,
-            # charge stripe token for cart total amount in cents
-            # remove stock from inventory
-            # clear checkout step from session
-            # clear invoice from session
-
+                # create invoice,
+                # charge stripe token for cart total amount in cents
+                # remove stock from inventory
+                # clear checkout step from session
+                # clear invoice from session
+            messages.success(request, "Invoice Successfully sent.")
             return HttpResponseRedirect('/invoices/%s/' % invoice.id)
 
         else:
-
-
             # use some dictionary unpacking magic to turn our invoice_dict back into an Invoice
-
-
-
             context = {
                 'invoice': invoice,
                 'token': request.session['token']
@@ -323,9 +356,11 @@ def popular_list(request):
     Fetch 8 products with the lowest quantity, greater than 0, and display them on the popular page
     """
     products = Product.objects.filter(quantity__gte='1').order_by('quantity')[:8]
+    products = paginate_list(request, products)
+
     context = {'products': products}
 
-    return render(request, "shop/popular_list.html", context)
+    return render(request, "shop/product_list.html", context)
 
 
 def contact(request):

@@ -73,9 +73,6 @@
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
                                 {% for item in invoice.line_items.all %}
 
-
-
-
     							<tr>
     								<td>{{ item.sku }}</td>
     								<td>{{ item.name }}</td>
@@ -117,8 +114,16 @@
     						</tbody>
     					</table>
     				</div>
+
     			</div>
     		</div>
+
+            <a href="/products/" class="btn btn-primary">Back to Store</a>
+
+
+            <a href="/invoices/{{ invoice.id }}/resend/" class="btn btn-info pull-right">Resend</a>
+
+
     	</div>
     </div>
 

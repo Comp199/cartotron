@@ -11,11 +11,11 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Total</th>
-                            <th> </th>
+                            <th width="">Product</th>
+                            <th width="10%">Quantity</th>
+                            <th width="10%" class="text-center">Price</>
+                            <th width="10%" class="text-center">Total</th>
+                            <th width="5%"> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,9 +69,9 @@
                                 <td class="col-sm-1 col-md-1">
 
                                 <form method = "post" action="/cart/remove/{{ item.product.id }}/">
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger pull-right">
                                         {% csrf_token %}
-                                        <span class="glyphicon glyphicon-remove"></span> Remove
+                                        <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </form>
 
@@ -81,13 +81,14 @@
                         {% empty %}
 
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="5" class="text-center">
                                     Your cart is empty.
                                 </td>
                             </tr>
 
                         {% endfor %}
 
+                        {% if not cart.is_empty %}
                         <tr>
                             <td>   </td>
                             <td>   </td>
@@ -116,8 +117,15 @@
                             <td><h3>Total</h3></td>
                             <td class="text-right"><h3><strong>${{ cart.total }}</strong></h3></td>
                         </tr>
+                    {% endif %}
                         <tr>
-                            <td>   </td>
+                            <td>
+                                <a href="{% url 'product_list' %}" type="button" class="btn btn-default pull-left">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                </a>
+                            </td>
+                            <td>  
+                            </td>
                             <td>
 
                                 <button id="clear-cart" class="btn btn-warning" type="submit" name="action" value="clear">Remove All</button>
@@ -125,11 +133,6 @@
                             </td>
                             <td>
                                 <button id="update-cart" class="btn btn-warning">Update Cart</button>
-                            </td>
-                            <td>
-                                <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                                </a>
                             </td>
                             <td>
                                 <a href="{% if cart.is_empty %}#{% else %}/cart/checkout/{% endif %}" class="btn btn-success" {% if cart.is_empty %}disabled="disabled" {% endif %}>
