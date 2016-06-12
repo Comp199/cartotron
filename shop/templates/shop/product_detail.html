@@ -43,23 +43,20 @@
 
             <hr>
 
-
+            <div class="btn-group cart">
                 {% if product.quantity != 0 %}
                     <form method="post" action="/cart/add/{{ product.id }}/">
                         {% csrf_token %}
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" min="1" max="{{ product.quantity }}" class="form-control cart-quantity" name="quantity" value="1">
+                        <br/>
+                        <button type="submit" class="btn btn-success">
+                            Add to cart
+                        </button>
 
-                        <div class="btn-group cart">
-                            <button type="submit" class="btn btn-success">
-                                Add to cart
-                            </button>
-                        </div>
-
-                        <div class="col-sm-3 col-md-3" style="text-align: center; position: absolute; bottom: 1px; left: 100px;">
-                            <input type="number" min="1" max="{{ product.quantity }}" class="form-control cart-quantity" name="quantity" value="1">
-                        </div>
                     </form>
                 {% endif %}
-
+            </div>
         </div>
     </div>
 
