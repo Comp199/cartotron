@@ -78,8 +78,9 @@ def cart_add(request, product_id):
 
     if request.method == "POST":
 
+        quantity = request.POST['quantity']
         product = Product.objects.get(id=product_id)
-        request.cart.add_item(product)
+        request.cart.add_item(product, quantity)
         messages.success(request, "Successfully added item to cart.")
 
     return HttpResponseRedirect("/cart/")

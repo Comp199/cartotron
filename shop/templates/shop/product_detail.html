@@ -47,9 +47,12 @@
                 {% if product.quantity != 0 %}
                     <form method="post" action="/cart/add/{{ product.id }}/">
                         {% csrf_token %}
+
                         <button type="submit" class="btn btn-success">
                             Add to cart
                         </button>
+
+                        <input type="number" min="1" max="{{ product.quantity }}" class="form-control cart-quantity" name="quantity" value="1">
                     </form>
                 {% endif %}
             </div>
