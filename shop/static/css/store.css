@@ -38,6 +38,18 @@
     white-space: nowrap;
 }
 
+.thumbnail{
+    margin-bottom: 0px;
+}
+
+.media > .thumbnail.pull-left{
+    padding-right: 0px;
+}
+
+.media > .media-body{
+    padding-left: 8px;
+}
+
 .thumbnail img {
     width: 100%;
 }
@@ -109,7 +121,7 @@
 *********************************************/
 /* Navbar colour */
 .navbar-store {
-  background-color: #1e1e42;
+  background-color: #1d1b3d;
   border-color: #323275;
   border-bottom: #ffffff;
   margin: 0;
@@ -362,7 +374,8 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #1e1e42;
+  background-color: #1d1b3d;
+    margin-top: 20px;
 }
 
 body > .container {
@@ -380,4 +393,9 @@ body > .container {
 
 code {
   font-size: 80%;
+}
+
+
+.product-list-item {
+    margin-bottom: 20px;
 }
