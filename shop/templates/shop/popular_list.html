@@ -18,40 +18,7 @@
 
     <div class="row">
         {% for product in products %}
-
-            <div class="col-sm-6  col-md-3">
-                <div class="thumbnail">
-                    {% if product.image %}
-
-                        <a href="/products/{{ product.id }}/">
-                        {% thumbnail product.image "260x220" as im %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"260x220" }}">
-                        {% endthumbnail %}
-                        </a>
-
-                    {% else %}
-                        <img src="http://placehold.it/260x220" alt="">
-                    {%  endif %}
-
-                    <div class="caption">
-                        <h4><a href="/products/{{ product.id }}/">{{ product.name }}</a></h4>
-    {#                        <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a></h4>#}
-                        <p>{{ product.description }}</p>
-                    </div>
-
-                    <div class="margin-top10" style="padding: 6px;">
-                        <form method="post" action="/cart/add/{{ product.id }}/">
-                            {% csrf_token %}
-                            {# product price moved down here #}
-                            <h4 class="pull-right" >${{ product.price }}</h4>
-                            <button type="submit" class="btn btn-success">
-                                Add to cart
-                            </button>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {% include "shop/includes/product_list_item.html" %}
         {% endfor %}
     </div>
 
