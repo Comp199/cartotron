@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load thumbnail %}
+{% load thumbnail bootstrap3 %}
 
 {% block title %}Products{% endblock title %}
 
@@ -20,72 +20,29 @@
 
         {% for product in products %}
 
-            <div class="col-sm-6  col-md-3">
-                <div class="thumbnail">
-                    {% if product.image %}
+            {% include "shop/includes/product_list_item.html" %}
 
-                        <a href="/products/{{ product.id }}/">
-                            {% thumbnail product.image "260x220" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                                     style="padding:{{ im|margin:"260x220" }}">
-                            {% endthumbnail %}
-                        </a>
-
-                    {% else %}
-                        <img src="http://placehold.it/260x220" alt="">
-                    {% endif %}
-
-                    <div class="caption">
-                        <h4><a href="/products/{{ product.id }}/">{{ product.name }}</a></h4>
-                        {#                        <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a></h4>#}
-                        <p>{{ product.description }}</p>
-                        <br/>
-
-                        {% if product.quantity == 0 %}
-                            <div id="product-list-empty">Out Of Stock</div>
-                        {% elif product.quantity <= 10 %}
-                            <div id="product-list-empty">Only {{ product.quantity }} Left</div>
-                        {% endif %}
-
-                    </div>
-                    {% if product.quantity != 0 %}
-                        <div class="margin-top10" style="padding: 6px;">
-
-
-                            <form method="post" action="/cart/add/{{ product.id }}/">
-                                {% csrf_token %}
-                                {# product price moved down here #}
-                                <h4 class="pull-right">${{ product.price }}</h4>
-
-                                <button type="submit" class="btn btn-success">
-                                    Add to cart
-                                </button>
-                            </form>
-                        </div>
-                    {% else %}
-                        <div class="margin-top10" style="padding: 6px;">
-
-                            <form method="post" action="/cart/add/{{ product.id }}/">
-                                {% csrf_token %}
-                                {# product price moved down here #}
-                                <h4 class="pull-right">Sold Out</h4>
-
-                                <button type="submit" class="btn btn-success" disabled>
-                                    Add to cart
-                                </button>
-                            </form>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-
-
-          {# only display 4 products in each row. #}
+            {# only display 4 products in each row. #}
             {% if forloop.counter|divisibleby:4 %}
-              </div>
-              <div class="row">
-          {% endif %}
+                </div>
+                <div class="row">
+            {% endif %}
         {% endfor %}
+
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% bootstrap_pagination products %}
+            <div class="pull-right">
+                Showing {{ products.start_index }} to {{ products.end_index }} of {{ products.paginator.count }}
+            </div>
+        </div>
+    </div>
+
+    {% if not products %}
+        <h3>I'm sorry... We couldn't find anything matching your request.</h3>
+        <a href="{% url 'product_list' %}">Check out our products!</a>
+    {% endif %}
 
 {% endblock content %}
