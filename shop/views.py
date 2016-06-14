@@ -173,6 +173,11 @@ def cart_update(request):
 
                     else:
 
+                        product = request.cart.items.get(id=item_id).product
+
+                        if quantity > product.quantity:
+                            quantity = product.quantity
+
                         try:
                             cart_item = request.cart.items.get(id=item_id)
                             cart_item.quantity = quantity
