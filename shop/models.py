@@ -61,7 +61,6 @@ class Cart(models.Model):
         Calculate tax.
         """
         tax = Decimal(self.subtotal() * Decimal('0.12')).quantize(Decimal('0.01'), rounding=ROUND_UP)
-        # tax = Decimal(self.subtotal() * Decimal('0.12'))
 
         return tax
 
