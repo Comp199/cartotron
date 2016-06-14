@@ -6,11 +6,11 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-md-4">
-            <h3> {{ product.name }}</h3>
-        </div>
+{#        <div class="col-md-4">#}
+{#            <h3> {{ product.name }}</h3>#}
+{#        </div>#}
 
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-8">
             {% include "shop/search_box.html" %}
 
         </div>
@@ -31,7 +31,7 @@
             <div class="product-title">{{ product.name }}</div>
             <div class="product-desc">{{ product.description }}</div>
             <hr>
-            <div class="product-price">$ {{ product.price }}</div>
+            <div class="product-price">${{ product.price }}</div>
 
             <div class="product-stock">
                 {% if product.quantity == 0 %}
@@ -49,6 +49,7 @@
                         {% csrf_token %}
                         <label for="quantity">Quantity:</label>
                         <input type="number" min="1" max="{{ product.quantity }}" class="form-control cart-quantity" name="quantity" value="1">
+
                         <br/>
                         <button type="submit" class="btn btn-success">
                             Add to cart
