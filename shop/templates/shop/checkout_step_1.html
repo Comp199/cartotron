@@ -5,8 +5,14 @@
 
 {% block content %}
 
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+    <span class="sr-only">33% Complete</span>
+  </div>
+</div>
     <h3>Cart</h3>
     <div class="row">
+
             <div class="col-sm-12 col-md-8 col-lg-8">
 
 {#              Display payment errors in this div, or nothing if error free#}
@@ -86,7 +92,6 @@
                             {% bootstrap_field form.address_2 %}
                             {% bootstrap_field form.phone_number %}
                             {% bootstrap_field form.email %}
-
                         </div>
 
                         <div class="col-md-6">
@@ -95,7 +100,6 @@
                             {% bootstrap_field form.country %}
                             {% bootstrap_field form.province %}
                             {% bootstrap_field form.postal_code %}
-
                         </div>
                     </div>
 
@@ -126,8 +130,8 @@
         <div class="col-sm-12 col-md-4 col-lg-4">
         </div>
 
-{% endblock content %}
 
+{% endblock content %}
 
 {% block scripts %}
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -160,12 +164,10 @@
                 $form.get(0).submit();
             }
         }
-        ;
 
 
         $(function () {
             var $form = $('#payment_form');
-
 
             $form.on("submit", function (event) {
 
