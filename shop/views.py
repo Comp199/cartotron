@@ -330,8 +330,6 @@ def invoice(request, invoice_id):
         'invoice': invoice,
     }
 
-    send_invoice(request, invoice_id)
-
     return render(request, 'shop/invoice.html', context)
 
 
