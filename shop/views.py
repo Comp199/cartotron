@@ -107,7 +107,10 @@ def cart_add(request, product_id):
 
     if request.method == "POST":
 
-        quantity = int(request.POST.get('quantity', 1))
+        quantity = 1;
+        if 'quantity' in request.POST:
+            quantity = int(request.POST['quantity', 1])
+
         product = Product.objects.get(id=product_id)
         request.cart.add_item(product, quantity)
         messages.success(request, "Successfully added item to cart.")
