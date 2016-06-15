@@ -11,9 +11,11 @@
   </div>
 </div>
     <h3>Cart</h3>
+    <form method="post" id="payment_form" action="." novalidate>
+
     <div class="row">
 
-            <div class="col-sm-12 col-md-8 col-lg-8">
+            <div class="col-sm-12 col-md-7 col-lg-7">
 
 {#              Display payment errors in this div, or nothing if error free#}
                 <div class="alert alert-danger payment-errors" style="display: none;">
@@ -21,115 +23,111 @@
                 </div>
 
 
-                <form method="post" id="payment_form" action="." novalidate>
-                    {% csrf_token %}
+                {% csrf_token %}
 
-                    <h4>Payment Information</h4>
+                <h4>Payment Information</h4>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label" for="id_card_number">Card Number</label>
-                                <input class="form-control" id="id_card_number" required="required" type="text" data-stripe="number">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="id_card_number">Card Number</label>
+                            <input class="form-control" id="id_card_number" maxlength="16" required="required" type="text" data-stripe="number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="control-label" for="id_expiration">Expiration (MM/YY)</label>
+                            <div>
+                                <select class="form-control-inline form-control" id="id_expiration" required="required" type="text" placeholder="MM" data-stripe="exp_month">
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                /
+                                <select class="form-control-inline form-control" id="id_expiration_year" required="required" type="text" placeholder="YY" data-stripe="exp_year">
+                                    <option>16</option>
+                                    <option>17</option>
+                                    <option>18</option>
+                                    <option>19</option>
+                                    <option>20</option>
+                                    <option>21</option>
+                                    <option>22</option>
+                                    <option>23</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>26</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label class="control-label" for="id_cvc">CVC</label>
+                            <div>
+                                <input class="form-control form-control-inline" size="3" id="id_cvc" required="required" type="text" data-stripe="cvc">
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <div class="form-group">
-                                <label class="control-label" for="id_expiration">Expiration (MM/YY)</label>
-                                <div>
-                                    <select class="form-control-inline form-control" id="id_expiration" required="required" type="text" placeholder="MM" data-stripe="exp_month">
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                    /
-                                    <select class="form-control-inline form-control" id="id_expiration_year" required="required" type="text" placeholder="YY" data-stripe="exp_year">
-                                        <option>16</option>
-                                        <option>17</option>
-                                        <option>18</option>
-                                        <option>19</option>
-                                        <option>20</option>
-                                        <option>21</option>
-                                        <option>22</option>
-                                        <option>23</option>
-                                        <option>24</option>
-                                        <option>25</option>
-                                        <option>26</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                        </div>
-                        <div class="col-xs-3">
-                            <div class="form-group">
-                                <label class="control-label" for="id_cvc">CVC</label>
-                                <div>
-                                    <input class="form-control form-control-inline" size="3" id="id_cvc" required="required" type="text" data-stripe="cvc">
-                                </div>
-                            </div>
-                        </div>
+                <h4>Billing Information</h4>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {% bootstrap_field form.first_name %}
+                        {% bootstrap_field form.address_1 %}
+                        {% bootstrap_field form.address_2 %}
+                        {% bootstrap_field form.phone_number %}
+                        {% bootstrap_field form.email %}
                     </div>
 
+                    <div class="col-md-6">
+                        {% bootstrap_field form.last_name %}
+                        {% bootstrap_field form.city %}
+                        {% bootstrap_field form.country %}
+                        {% bootstrap_field form.province %}
+                        {% bootstrap_field form.postal_code %}
+                    </div>
+                </div>
 
-                    <h4>Billing Information</h4>
+                <div class="form-group margin-top20" >
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            {% bootstrap_field form.first_name %}
-                            {% bootstrap_field form.address_1 %}
-                            {% bootstrap_field form.address_2 %}
-                            {% bootstrap_field form.phone_number %}
-                            {% bootstrap_field form.email %}
-                        </div>
-
-                        <div class="col-md-6">
-                            {% bootstrap_field form.last_name %}
-                            {% bootstrap_field form.city %}
-                            {% bootstrap_field form.country %}
-                            {% bootstrap_field form.province %}
-                            {% bootstrap_field form.postal_code %}
-                        </div>
+                    <div class="pull-left">
+                        <button type="submit" class="btn btn-default" name="action" value="back">Back</button>
                     </div>
 
-                    <div class="form-group margin-top20" >
+                    <div class="pull-right">
 
-                        <div class="pull-left">
-                            <button type="submit" class="btn btn-default" name="action" value="back">Back</button>
-                        </div>
+                       <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                       </a>
 
-                        <div class="pull-right">
+                        <button type="submit" class="btn btn-success">
+                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        </button>
 
-                           <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                           </a>
-
-                            <button type="submit" class="btn btn-success">
-                                Checkout <span class="glyphicon glyphicon-play"></span>
-                            </button>
-
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
+                    <div class="clearfix"></div>
+                </div>
 
-                </form>
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-4 col-lg-4">
-        </div>
-
+    </form>
 
 {% endblock content %}
 

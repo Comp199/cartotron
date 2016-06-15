@@ -79,6 +79,10 @@ class Cart(models.Model):
 
         return total_price
 
+    def total_with_shipping(self):
+
+        return self.total() + 10
+
     def add_item(self, product, quantity=1):
         """
         Add an item to the cart. If item is already in the cart, the items quantity will be incremented by 1.
