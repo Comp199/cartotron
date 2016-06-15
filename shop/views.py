@@ -319,6 +319,9 @@ def checkout(request):
                 # remove stock from inventory
                 # clear checkout step from session
                 # clear invoice from session
+
+                invoice.send_email()
+
             messages.success(request, "Invoice Successfully sent.")
             return HttpResponseRedirect('/invoices/%s/' % invoice.id)
 
