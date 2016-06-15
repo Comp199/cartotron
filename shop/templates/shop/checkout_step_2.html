@@ -14,86 +14,87 @@
     <h3>Confirmation</h3>
 
     <div class="row margin-top10">
-            <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="col-sm-12 col-md-8 col-lg-7">
 
-                <form method="post" id="payment_form" action="." novalidate>
+            <h4>Payment Information</h4>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>
+                        <h5>Card Number</h5>
+                        <span>**** **** **** {{ token.card.last4 }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div>
+                        <h5>Expiry</h5>
+                        <span>{{ token.card.exp_month }}/{{token.card.exp_year }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <h5>CVC</h5>
+                        <span>***</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="margin-top20">
+                <h4>Billing Information</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ invoice.name_first }} {{ invoice.name_last }} <br/>
+                    {{ invoice.street_1 }}<br/>
+                    {% if invoice.street_2 %}{{ invoice.street_2 }}<br/>{% endif %}
+                    {{ invoice.city }}, {{ invoice.province }}<br/>
+                    {{ invoice.country }}<br/>
+                    {{ invoice.postal_code }}<br/><br/>
+                    {{ invoice.phone }}<br/>
+                    {{ invoice.email }}
+
+                </div>
+
+                <div class="col-md-6">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-5">
+            {% include "shop/includes/cart_summary.html" %}
+        </div>
+    </div>
+    <div class="row margin-top20">
+        <div class="col-lg-12">
+
+            <div class="pull-left">
+                <form method="post" action=".">
                     {% csrf_token %}
-
-                    <h4>Payment Information</h4>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div>
-                                <h5>Card Number</h5>
-                                <span>**** **** **** {{ token.card.last4 }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div>
-                                <h5>Expiry</h5>
-                                <span>{{ token.card.exp_month }}/{{token.card.exp_year }}</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div>
-                                <h5>CVC</h5>
-                                <span>***</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="margin-top20">
-                        <h4>Billing Information</h4>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ invoice.name_first }} {{ invoice.name_last }} <br/>
-                            {{ invoice.street_1 }}<br/>
-                            {% if invoice.street_2 %}{{ invoice.street_2 }}<br/>{% endif %}
-                            {{ invoice.city }}, {{ invoice.province }}<br/>
-                            {{ invoice.country }}<br/>
-                            {{ invoice.postal_code }}<br/><br/>
-                            {{ invoice.phone }}<br/>
-                            {{ invoice.email }}
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                        </div>
-                    </div>
-
-                    <div class="form-group margin-top20">
-                        <div class="pull-left">
-                            <form method="post" action=".">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-default" name="action" value="back">Back</button>
-                            </form>
-                        </div>
-                        <div class="pull-right">
-
-                        <form action="." method="post">
-                           <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                            </a>
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-success">
-                                    Checkout <span class="glyphicon glyphicon-play"></span>
-                                </button>
-                            </form>
-
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-
+                    <button type="submit" class="btn btn-default" name="action" value="back">
+                        <i class="glyphicon glyphicon-arrow-left"></i> Back
+                    </button>
                 </form>
             </div>
+            <div class="pull-right">
+
+             <form action="." method="post">
+               <a href="{% url 'product_list' %}" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                </a>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">
+                    Checkout <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </form>
+
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="col-sm-12 col-md-4 col-lg-4">
-        </div>
+    </div>
 
 {% endblock content %}
 

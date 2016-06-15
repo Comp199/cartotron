@@ -1,0 +1,40 @@
+<h4>Order Summary</h4>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th width="10%">Quantity</th>
+            <th width="20%" class="text-right">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart.items.all %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td class="text-right">{{ item.quantity }}</td>
+            <td class="text-right">${{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>Subtotal</th>
+            <td></td>
+            <td class="text-right">${{ cart.subtotal }}</td>
+        </tr>
+        <tr>
+            <th>Shipping</th>
+            <td></td>
+            <td class="text-right">$10.00</td>
+        </tr>
+        <tr>
+            <th>Tax</th>
+            <td></td>
+            <td class="text-right">${{ cart.tax }}</td>
+        </tr>
+        <tr class="active">
+            <th>Total</th>
+            <td></td>
+            <th class="text-right">${{ cart.total_with_shipping }}</th>
+        </tr>
+    </tbody>
+</table>
