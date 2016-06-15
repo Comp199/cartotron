@@ -1,13 +1,12 @@
 {% load thumbnail %}
 
-<div class="col-sm-6  col-md-3">
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
     <div class="thumbnail product-list-item">
         {% if product.image %}
 
             <a href="/products/{{ product.id }}/">
                 {% thumbnail product.image "260x220" as im %}
-                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                         style="padding:{{ im|margin:"260x220" }}">
+                    <img src="{{ im.url }}" width="260" height="220" style="padding:{{ im|margin:"260x220" }}; height: 220px; width: 260px;">
                 {% endthumbnail %}
             </a>
 
@@ -37,9 +36,9 @@
                     {# product price moved down here #}
                     <h4 class="pull-right">${{ product.price }}</h4>
 
-                    <button type="submit" class="btn btn-success">
-                        Add to cart
-                    </button>
+                    {# full width and normal width submit buttons, depending on screen size #}
+                    <button type="submit" class="btn btn-success hidden-xs">Add to cart</button>
+                    <button type="submit" class="btn btn-success btn-block hidden-sm hidden-md hidden-lg">Add to cart</button>
                 </form>
             </div>
         {% else %}
@@ -50,9 +49,9 @@
                     {# product price moved down here #}
                     <h4 class="pull-right">Sold Out</h4>
 
-                    <button type="submit" class="btn btn-success" disabled>
-                        Add to cart
-                    </button>
+                    {# full width and normal width submit buttons, depending on screen size #}
+                    <button type="submit" class="btn btn-success hidden-xs" disabled>Add to cart</button>
+                    <button type="submit" class="btn btn-success btn-block visible-xs" disabled>Add to cart</button>
                 </form>
             </div>
         {% endif %}

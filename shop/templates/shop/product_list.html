@@ -16,17 +16,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row margin-top10">
 
         {% for product in products %}
-
             {% include "shop/includes/product_list_item.html" %}
-
-            {# only display 4 products in each row. #}
-            {% if forloop.counter|divisibleby:4 %}
-                </div>
-                <div class="row">
-            {% endif %}
         {% endfor %}
 
     </div>
