@@ -76,6 +76,8 @@
       padding: 5px 0;
       font-size: 18px;
       line-height: 1.3;
+        font-weight: 700;
+        color: #4d4d4d;
     }
 
     .content-padding {
@@ -152,7 +154,7 @@
       border-radius: 4px;
     }
 
-    .title-dark {
+    #title-dark {
       text-align: left;
       border-bottom: 1px solid #cccccc;
       color: #4d4d4d;
@@ -223,7 +225,7 @@
       }
 
       td[class="content-padding"] {
-        padding: 5px 0 5px !important;
+        padding: 5px 0 5px;
       }
 
        td[class="button"] {
@@ -255,7 +257,7 @@
       }
 
       td[class="item-table"] {
-        padding: 30px 20px !important;
+        padding: 30px 20px; width: 560px;
       }
 
       td[class="mini-container-left"],
@@ -314,16 +316,16 @@
     </td>
   </tr>
   <tr>
-    <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
+    <td align="center" valign="top" width="100%" style="background-color: #f7f7f7; padding: 20px 0 5px;">
       <center>
         <table cellspacing="0" cellpadding="0" width="600" class="w320">
           <tr>
-            <td class="header-lg">
-              Thank you for your order! </br>
+            <td style=" font-size: 32px; font-weight: 700; line-height: normal; padding: 35px 0 0; color: #4d4d4d;">
+              Thank you for your order! <br/>
             </td>
           </tr>
           <tr>
-            <td class="free-text">
+            <td style="padding: 10px 18px 30px;">
               We'll let you know as soon as your items have shipped.
             </td>
           </tr>
@@ -332,14 +334,16 @@
             <td class="w320">
               <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td class="mini-container-left">
+                  <td style="padding: 10px 0 10px 15px; width: 278px">
                     <table cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td class="mini-block-padding">
                           <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:separate !important;">
                             <tr>
-                              <td class="mini-block">
-                                <span class="header-sm">Shipping Address</span><br />
+                              <td style="border: 1px solid #e5e5e5; border-radius: 5px; background-color: #ffffff; padding: 12px 15px 15px; text-align: left; width: 253px;">
+                                <span style="padding: 5px 0; font-size: 18px; line-height: 1.3; font-weight: 700; color: #4d4d4d;">
+                                    Shipping Address
+                                </span><br />
                                 {{ invoice.name_first }} <br />
                                 {{ invoice.name_last }} <br />
                                 {{ invoice.street_1 }} <br />
@@ -352,17 +356,21 @@
                       </tr>
                     </table>
                   </td>
-                  <td class="mini-container-right">
+                  <td style="padding: 10px 14px 10px 15px; width: 278px">
                     <table cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td class="mini-block-padding">
                           <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:separate !important;">
                             <tr>
-                              <td class="mini-block">
-                                <span class="header-sm">Date Ordered</span><br />
+                              <td style="border: 1px solid #e5e5e5; border-radius: 5px; background-color: #ffffff; padding: 12px 15px 15px; text-align: left; width: 253px;">
+                                <span style="padding: 5px 0; font-size: 18px; line-height: 1.3; font-weight: 700; color: #4d4d4d;">
+                                    Date Ordered
+                                </span><br />
                                 {{ invoice.created_date }} <br />
                                 <br />
-                                <span class="header-sm">Order</span> <br />
+                                <span style="padding: 5px 0; font-size: 18px; line-height: 1.3; font-weight: 700; color: #4d4d4d;">
+                                    Order
+                                </span> <br />
                                 {{ invoice.id }}
                               </td>
                             </tr>
@@ -384,42 +392,42 @@
       <center>
         <table cellpadding="0" cellspacing="0" width="600" class="w320">
             <tr>
-              <td class="item-table">
+              <td style=" padding: 30px 20px; width: 560px;">
                 <table cellspacing="0" cellpadding="0" width="100%">
                   <tr>
-                    <td class="title-dark" width="300">
+                    <td style="text-align: left; border-bottom: 1px solid #cccccc; color: #4d4d4d; font-weight: 700; padding-bottom: 5px;" width="300">
                        Item
                     </td>
-                    <td class="title-dark" width="163">
+                    <td style="text-align: left; border-bottom: 1px solid #cccccc; color: #4d4d4d; font-weight: 700; padding-bottom: 5px;" width="163">
                       Qty
                     </td>
-                    <td class="title-dark" width="97">
+                    <td style="text-align: left; border-bottom: 1px solid #cccccc; color: #4d4d4d; font-weight: 700; padding-bottom: 5px;" width="97">
                       Total
                     </td>
                   </tr>
                     {% for item in invoice.line_items.all %}
                   <tr>
-                    <td class="item-col item">
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 200px;">
                       <table cellspacing="0" cellpadding="0" width="100%">
                         <tr>
-                          <td class="mobile-hide-img">
+                          <td style="float: left;">
                             <a href="#">
-                                {% thumbnail item.product.image "60x60" as im %}
+                                {% thumbnail item.product.image "90x75" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"260x220" }}">
                                 {% endthumbnail %}
                             </a>
                           </td>
-                          <td class="product">
-                            <span style="color: #4d4d4d; font-weight:bold;">{{ item.name }}</span> <br />
+                          <td style="text-align: left; vertical-align: top; width: 175px;">
+                            <span style=" text-align: left; color: #4d4d4d; font-weight:bold;">{{ item.name }}</span> <br />
 {#                            {{ item.description }}#}
                           </td>
                         </tr>
                       </table>
                     </td>
-                    <td class="item-col quantity">
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 75px;">
                       {{ item.quantity }}
                     </td>
-                    <td class="item-col">
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top;">
                       {{ item.total }}
                     </td>
                   </tr>
@@ -427,26 +435,26 @@
                     {% endfor %}
 
                   <tr>
-                    <td class="item-col item mobile-row-padding"></td>
-                    <td class="item-col quantity"></td>
-                    <td class="item-col price"></td>
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 200px;"></td>
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 75px;"></td>
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 100px;"></td>
                   </tr>
 
 
                   <tr>
-                    <td class="item-col item">
+                    <td style="padding-top: 20px; text-align: left; vertical-align: top; width: 200px;">
                     </td>
-                    <td class="item-col quantity" style="text-align:right; padding-right: 10px; border-top: 1px solid #cccccc;">
-                      <span class="total-space">Subtotal</span> <br />
-                      <span class="total-space">Tax</span>  <br />
-                      <span class="total-space">Shipping</span> <br />
-                      <span class="total-space" style="font-weight: bold; color: #4d4d4d">Total</span>
+                    <td style="text-align:right; padding-right: 10px; border-top: 1px solid #cccccc; padding-top: 20px; vertical-align: top; width: 75px;">
+                      <span style=" padding-bottom: 8px; display: inline-block;">Subtotal</span> <br />
+                      <span style=" padding-bottom: 8px; display: inline-block;">Tax</span>  <br />
+                      <span style=" padding-bottom: 8px; display: inline-block;">Shipping</span> <br />
+                      <span style=" padding-bottom: 8px; display: inline-block; font-weight: bold; color: #4d4d4d">Total</span>
                     </td>
-                    <td class="item-col price" style="text-align: left; border-top: 1px solid #cccccc;">
-                      <span class="total-space">{{ invoice.subtotal }}</span> <br />
-                      <span class="total-space">{{ invoice.tax }}</span>  <br />
-                      <span class="total-space">{{ invoice.shipping }}</span>  <br />
-                      <span class="total-space" style="font-weight:bold; color: #4d4d4d">{{ invoice.total }}</span>
+                    <td style="text-align: left; border-top: 1px solid #cccccc;padding-top: 20px; vertical-align: top; width: 100px;">
+                      <span style=" padding-bottom: 8px; display: inline-block;">{{ invoice.subtotal }}</span> <br />
+                      <span style=" padding-bottom: 8px; display: inline-block;">{{ invoice.tax }}</span>  <br />
+                      <span style=" padding-bottom: 8px; display: inline-block;">{{ invoice.shipping }}</span>  <br />
+                      <span style=" padding-bottom: 8px; display: inline-block; font-weight:bold; color: #4d4d4d">{{ invoice.total }}</span>
                     </td>
                 </table>
               </td>
