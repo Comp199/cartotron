@@ -412,12 +412,12 @@
                         <tr>
                           <td style="float: left; vertical-align: top;">
                             <a href="#">
-                                {% thumbnail item.product.image "90x75" as im %}
+                                {% thumbnail item.product.image "140x110" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="padding:{{ im|margin:"260x220" }}">
                                 {% endthumbnail %}
                             </a>
                           </td>
-                          <td style="text-align: left; vertical-align: top; width: 175px;">
+                          <td style="text-align: left; vertical-align: top; width: 200px;">
                             <span style=" text-align: left; color: #4d4d4d; font-weight:bold;">{{ item.name }}</span> <br />
 {#                            {{ item.description }}#}
                           </td>
