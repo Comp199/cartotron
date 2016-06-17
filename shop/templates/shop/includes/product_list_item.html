@@ -16,20 +16,21 @@
 
         <div class="caption">
             <h4><a href="/products/{{ product.id }}/">{{ product.name }}</a></h4>
-            {#                        <h4><a href="{% url 'product_detail' product_id=product.id %}">{{ product.name }}</a></h4>#}
             <p>{{ product.description }}</p>
             <br/>
 
-            {% if product.quantity == 0 %}
-                <div id="product-list-empty">Out Of Stock</div>
-            {% elif product.quantity <= 10 %}
-                <div id="product-list-empty">Only {{ product.quantity }} Left</div>
-            {% endif %}
 
         </div>
         {% if product.quantity != 0 %}
             <div class="margin-top10" style="padding: 6px;">
 
+                {% if product.quantity == 0 %}
+                    <div id="product-list-empty">Out Of Stock</div>
+                {% elif product.quantity <= 10 %}
+                    <div id="product-list-empty">Only {{ product.quantity }} Left</div>
+                {% else %}
+                    <div>&nbsp;</div>
+                {% endif %}
 
                 <form method="post" action="/cart/add/{{ product.id }}/">
                     {% csrf_token %}
@@ -43,7 +44,7 @@
             </div>
         {% else %}
             <div class="margin-top10" style="padding: 6px;">
-
+                <div>&nbsp;</div>
                 <form method="post" action="/cart/add/{{ product.id }}/">
                     {% csrf_token %}
                     {# product price moved down here #}
